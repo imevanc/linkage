@@ -42,6 +42,9 @@ const Theme = (ourMode) => {
           main: "#5f70c9",
         },
       },
+      lockIcon: {
+        main: "#ff1744",
+      },
     },
   });
 };

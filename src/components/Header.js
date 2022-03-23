@@ -16,7 +16,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import AgeUk from "./AgeUk";
-import DonateNow from "./DonateNow";
 
 const account = ["Profile", "Visitees", "Logout"];
 
@@ -73,12 +72,6 @@ const Header = (props) => {
                 display: { xs: "none", md: "flex" },
               }}
             ></Typography>
-            <DonateNow
-              sx={{
-                flexGrow: 1,
-                display: { xs: "none", md: "flex" },
-              }}
-            />
 
             <FormGroup>
               <FormControlLabel

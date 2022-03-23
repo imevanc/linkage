@@ -1,16 +1,27 @@
-import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
+import { Card, CardMedia } from "@mui/material";
 
 const AgeUk = () => {
   return (
-    <Link to="/">
-      <Box
-        sx={{ paddingTop: "15px" }}
+    <Card
+      component={Link}
+      to={"/"}
+      sx={{
+        flexGrow: 1,
+        height: "50%",
+        width: "100%",
+        display: { xs: "flex", md: "flex", sm: "block" },
+      }}
+    >
+      <CardMedia
         component="img"
-        alt="AgeUK Logo."
-        src={process.env.PUBLIC_URL + "logo.png"}
+        sx={{
+          display: { xs: "flex", md: "flex", sm: "block" },
+        }}
+        image={process.env.PUBLIC_URL + "logo.png"}
+        alt="ageuk logo"
       />
-    </Link>
+    </Card>
   );
 };
 

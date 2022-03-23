@@ -17,7 +17,7 @@ const App = () => {
           <CssBaseline />
           <Header ourMode={ourMode} setOurMode={setOurMode} />
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage />} ourMode={ourMode} />
             <Route path="/donate" element={<DonatePage />} />
           </Routes>
         </ThemeProvider>

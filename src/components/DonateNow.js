@@ -9,12 +9,14 @@ const DonateNow = () => {
 
   return (
     <Button
+      type="submit"
+      fullWidth
+      variant="contained"
       component={Link}
       to={`/donate`}
-      variant="contained"
-      type="submit"
       color="success"
       sx={{
+        mb: 2,
         fontSize: ourTheme.ourTheme.palette.button.smallFontSize,
         backgroundColor: ourTheme.ourTheme.palette.secondary.main,
       }}
