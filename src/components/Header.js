@@ -16,6 +16,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import AgeUk from "./AgeUk";
+import DonateNow from "./DonateNow";
 
 const account = ["Profile", "Visitees", "Logout"];
 
@@ -45,7 +46,7 @@ const Header = (props) => {
         }}
       >
         <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
+          <Toolbar disableGutters>
             <Typography
               variant="h6"
               noWrap
@@ -71,9 +72,13 @@ const Header = (props) => {
                 flexGrow: 1,
                 display: { xs: "none", md: "flex" },
               }}
-            >
-              AgeUk
-            </Typography>
+            ></Typography>
+            <DonateNow
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+              }}
+            />
 
             <FormGroup>
               <FormControlLabel

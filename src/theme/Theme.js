@@ -8,7 +8,7 @@ const Theme = (ourMode) => {
         main: "#4caf50",
       },
       secondary: {
-        main: "#14a37f",
+        main: "#ff9100",
       },
       text: {
         main: "white",
