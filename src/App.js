@@ -6,7 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./components/HomePage";
-
+import DonatePage from "./components/DonatePage";
 const App = () => {
   const [ourMode, setOurMode] = useState("light");
   const ourTheme = Theme(ourMode);
@@ -18,6 +18,7 @@ const App = () => {
           <Header ourMode={ourMode} setOurMode={setOurMode} />
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/donate" element={<DonatePage />} />
           </Routes>
         </ThemeProvider>
       </ThemeContext.Provider>
