@@ -15,6 +15,9 @@ const Theme = (ourMode) => {
       },
       typography: {
         fontSize: "1.4rem",
+        primary: {
+          main: "#4caf50",
+        },
       },
       action: {
         active: "#001E3C",
@@ -22,6 +25,9 @@ const Theme = (ourMode) => {
       button: {
         fontSize: "1.4rem",
         smallFontSize: "1rem",
+        color: {
+          main: "#4caf50",
+        },
         primary: {
           main: "white",
         },

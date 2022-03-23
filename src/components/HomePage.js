@@ -3,11 +3,9 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -15,7 +13,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
+import { Link } from "react-router-dom";
 import DonateNow from "./DonateNow";
+
+// TODO
+// * Validation with the sign in form and get /api/users call
+// * remember me box ?
+// * forgot password link to a react-router-dom link
+// * associate the user with the user avatar after the successful usr validation
 
 const HomePage = () => {
   const ourTheme = useContext(ThemeContext);
@@ -30,8 +35,6 @@ const HomePage = () => {
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
-      <CssBaseline />
-
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <Box
           sx={{
@@ -105,13 +108,17 @@ const HomePage = () => {
             <DonateNow />
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+                {/* <Link>Forgot password?</Link> */}
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link to="/signup" style={{ textDecoration: "none" }}>
+                  <Typography
+                    sx={{
+                      color: ourTheme.ourTheme.palette.typography.primary.main,
+                    }}
+                  >
+                    {"Don't have an account? Sign Up"}
+                  </Typography>
                 </Link>
               </Grid>
             </Grid>
