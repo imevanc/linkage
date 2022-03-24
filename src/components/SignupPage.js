@@ -4,14 +4,15 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
+import ScrollDownMenu from "./ScrollDownMenu";
 
 // TODO
 // * create a react-router-dom link and replace the mui link
@@ -23,13 +24,17 @@ import { ThemeContext } from "../theme/ThemeContext";
 
 const SignUpPage = () => {
   const ourTheme = useContext(ThemeContext);
+  const [userRole, setUserRole] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
       email: data.get("email"),
-      password: data.get("password"),
+      postCode: data.get("postCode"),
+      userRole: userRole,
     });
   };
 
@@ -49,7 +54,7 @@ const SignUpPage = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign Up
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -88,19 +93,20 @@ const SignUpPage = () => {
               <TextField
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
+                name="postCode"
+                label="Post Code"
+                type="postCode"
+                id="postCode"
+                autoComplete="new-postCode"
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
+          </Grid>
+          <ScrollDownMenu setUserRole={setUserRole} />
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={<Checkbox value="allowExtraEmails" color="primary" />}
+              label="I want to receive marketing updates."
+            />
           </Grid>
           <Button
             type="submit"
@@ -112,8 +118,14 @@ const SignUpPage = () => {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link style={{ textDecoration: "none" }}>
-                Already have an account? Sign in
+              <Link to={"/"} style={{ textDecoration: "none" }}>
+                <Typography
+                  sx={{
+                    color: ourTheme.ourTheme.palette.typography.primary.main,
+                  }}
+                >
+                  Already have an account? Sign in
+                </Typography>
               </Link>
             </Grid>
           </Grid>
