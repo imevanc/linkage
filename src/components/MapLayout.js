@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import LinearColor from "./LinearColor";
-import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -35,40 +36,39 @@ const MapLayout = () => {
   }, [url]);
 
   return (
-    <Container maxWidth="md">
-      <Box
-        display="flex"
-        justifyContent="flex-end"
-        sx={{
-          flexGrow: 1,
-          display: { xs: "flex", md: "flex", sm: "block" },
-        }}
-      >
-        {!(
-          coordinates.lon.toString().length && coordinates.lat.toString().length
-        ) ? (
-          <LinearColor />
-        ) : (
-          <MapContainer
-            tap={Boolean(false)}
-            center={[coordinates.lat, coordinates.lon]}
-            zoom={20}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[coordinates.lat, coordinates.lon]}>
-              <Popup>
-                Post Code: {pcode}
-                <br />
-                Latitude: {coordinates.lat} <br /> Longitude: {coordinates.lon}
-              </Popup>
-            </Marker>
-          </MapContainer>
-        )}
-      </Box>
-    </Container>
+    <Grid container>
+      <Grid item sm={6}>
+        <Box direction="row" justifyContent="end" display="flex">
+          {!(
+            coordinates.lon.toString().length &&
+            coordinates.lat.toString().length
+          ) ? (
+            <LinearColor />
+          ) : (
+            <MapContainer
+              tap={Boolean(false)}
+              center={[coordinates.lat, coordinates.lon]}
+              zoom={20}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker position={[coordinates.lat, coordinates.lon]}>
+                <Popup>
+                  Post Code: {pcode}
+                  <br />
+                  Latitude: {coordinates.lat} <br /> Longitude:{" "}
+                  {coordinates.lon}
+                </Popup>
+              </Marker>
+            </MapContainer>
+          )}
+          {/* </Box>
+      </Container> */}
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 
