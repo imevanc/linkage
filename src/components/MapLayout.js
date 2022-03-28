@@ -7,7 +7,7 @@ import Paper from "@mui/material/Paper";
 import * as api from "../api.js";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import UserCard from "./UserCard";
+import VisiteeCard from "./VisiteeCard";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 
@@ -19,6 +19,7 @@ const configLeaflet = () => {
     shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
   });
 };
+
 const MapLayout = () => {
   const ourTheme = useContext(ThemeContext);
   configLeaflet();
@@ -46,15 +47,7 @@ const MapLayout = () => {
           <LinearColor />
         ) : (
           users.map((user, idx) => {
-            return (
-              <UserCard
-                key={idx}
-                border={border}
-                firstName={user.firstName}
-                lastName={user.lastName}
-                postcode={user.postcode}
-              />
-            );
+            return <VisiteeCard key={idx} border={border} user={user} />;
           })
         )}
       </Grid>

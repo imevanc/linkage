@@ -9,6 +9,7 @@ import HomePage from "./components/HomePage";
 import DonatePage from "./components/DonatePage";
 import SignUpPage from "./components/SignupPage";
 import MapLayout from "./components/MapLayout";
+import VisiteeProfileCard from "./components/VisiteeProfileCard";
 
 const App = () => {
   const [ourMode, setOurMode] = useState("light");
@@ -21,6 +22,11 @@ const App = () => {
           <Header ourMode={ourMode} setOurMode={setOurMode} />
           <Routes>
             <Route path="/" element={<HomePage />} ourMode={ourMode} />
+            <Route
+              path="/visitee"
+              element={<VisiteeProfileCard />}
+              ourMode={ourMode}
+            />
             <Route path="/map" element={<MapLayout />} ourMode={ourMode} />
             <Route path="/donate" element={<DonatePage />} />
             <Route path="/signup" element={<SignUpPage />} />
