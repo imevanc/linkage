@@ -94,6 +94,8 @@ const HomePage = () => {
               label="Remember me"
             />
             <Button
+              component={Link}
+              to={"/map"}
               type="submit"
               fullWidth
               variant="contained"

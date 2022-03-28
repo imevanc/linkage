@@ -39,8 +39,6 @@ const MapLayout = () => {
     fetchUsers().catch((error) => console.log(error));
   }, []);
 
-  console.log(users);
-
   return (
     <Grid container sx={{ paddingTop: "50px", paddingLeft: "40px" }}>
       <Grid item xs={12} sm={8} md={5} elevation={6} component={Paper} square>
