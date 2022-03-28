@@ -25,14 +25,17 @@ const UserCard = (props) => {
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h6">
-              firstName lastName
+              {props.firstName}
+            </Typography>
+            <Typography component="div" variant="h6">
+              {props.lastName}
             </Typography>
             <Typography
               variant="subtitle1"
               color="text.secondary"
               component="div"
             >
-              postCode
+              {props.postcode}
             </Typography>
           </CardContent>
           <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>

@@ -22,79 +22,89 @@ const configLeaflet = () => {
 const MapLayout = () => {
   const ourTheme = useContext(ThemeContext);
   configLeaflet();
+  const [users, setUsers] = React.useState([]);
   const [clicked, setClicked] = React.useState(Boolean(false));
   const [border, setBorder] = React.useState(
     ourTheme.ourTheme.palette.secondary.main
   );
-
+  const filterUsers = (users) => {
+    return users.filter((user) => user.latitude && user.longitude);
+  };
   React.useEffect(() => {
-    const fetchUsers = () => {
-      return api.getUsers().then((users) => {
-        console.log(users);
+    const fetchUsers = async () => {
+      await api.getUsers().then((fetchedUsers) => {
+        setUsers(filterUsers(fetchedUsers));
       });
     };
-    fetchUsers();
+    fetchUsers().catch((error) => console.log(error));
   }, []);
 
-  return <></>;
-  //   <Grid container sx={{ paddingTop: "50px", paddingLeft: "40px" }}>
-  //     <Grid item xs={12} sm={8} md={5} elevation={6} component={Paper} square>
-  //       {coordinates.coordinates.map((coordinate, idx) => {
-  //         return (
-  //           <UserCard
-  //             key={idx}
-  //             border={border}
-  //             coordinate={coordinate}
-  //             postCode={"postCode"}
-  //           />
-  //         );
-  //       })}
-  //     </Grid>
-  //     {!(coordinates.coordinates.length && coordinates.coordinates.length) ? (
-  //       <LinearColor />
-  //     ) : (
-  //       <Grid item xs={false} sm={4} md={7} maxWidth="xl">
-  //         <Box direction="row" justifyContent="end" display="flex">
-  //           <MapContainer
-  //             tap={Boolean(false)}
-  //             center={[
-  //               coordinates.coordinates[0].latitude,
-  //               coordinates.coordinates[0].longitude,
-  //             ]}
-  //             style={{ height: "80vh", width: "90%" }}
-  //             zoom={10}
-  //           >
-  //             <TileLayer
-  //               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  //               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  //             />
-  //             {coordinates.coordinates.map((coordinate, idx) => {
-  //               return (
-  //                 <Marker
-  //                   key={idx}
-  //                   position={[coordinate.latitude, coordinate.longitude]}
-  //                   eventHandlers={{
-  //                     click: () => {
-  //                       setBorder(ourTheme.ourTheme.palette.primary.main);
-  //                       setClicked(!clicked);
-  //                     },
-  //                   }}
-  //                 >
-  //                   <Popup>
-  //                     Post Code: {"postcode"}
-  //                     <br />
-  //                     Latitude: {coordinate.latitude} <br /> Longitude:{" "}
-  //                     {coordinate.longitude}
-  //                   </Popup>
-  //                 </Marker>
-  //               );
-  //             })}
-  //           </MapContainer>
-  //         </Box>
-  //       </Grid>
-  //     )}
-  //   </Grid>
-  // );
+  console.log(users);
+
+  return (
+    <Grid container sx={{ paddingTop: "50px", paddingLeft: "40px" }}>
+      <Grid item xs={12} sm={8} md={5} elevation={6} component={Paper} square>
+        {!users.length ? (
+          <LinearColor />
+        ) : (
+          users.map((user, idx) => {
+            return (
+              <UserCard
+                key={idx}
+                border={border}
+                firstName={user.firstName}
+                lastName={user.lastName}
+                postcode={user.postcode}
+              />
+            );
+          })
+        )}
+      </Grid>
+      {users.length === 0 ? (
+        <LinearColor />
+      ) : (
+        <Grid item xs={false} sm={4} md={7} maxWidth="xl">
+          <Box direction="row" justifyContent="end" display="flex">
+            <MapContainer
+              tap={Boolean(false)}
+              center={[
+                JSON.parse(users[0].latitude),
+                JSON.parse(users[0].longitude),
+              ]}
+              style={{ height: "80vh", width: "90%" }}
+              zoom={10}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {users.map((user, idx) => {
+                return (
+                  <Marker
+                    key={idx}
+                    position={[user.latitude, user.longitude]}
+                    eventHandlers={{
+                      click: () => {
+                        setBorder(ourTheme.ourTheme.palette.primary.main);
+                        setClicked(!clicked);
+                      },
+                    }}
+                  >
+                    <Popup>
+                      Post Code: {user.postcode}
+                      <br />
+                      Latitude: {user.latitude} <br /> Longitude:{" "}
+                      {user.longitude}
+                    </Popup>
+                  </Marker>
+                );
+              })}
+            </MapContainer>
+          </Box>
+        </Grid>
+      )}
+    </Grid>
+  );
 };
 
 export default MapLayout;
