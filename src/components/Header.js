@@ -15,7 +15,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
-import AgeUk from "./AgeUk";
+import AgeOk from "./AgeOk";
 
 const account = ["Profile", "Visitees", "Logout"];
 
@@ -52,7 +52,7 @@ const Header = (props) => {
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              <AgeUk />
+              <AgeOk />
             </Typography>
 
             <Typography
@@ -61,7 +61,7 @@ const Header = (props) => {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             >
-              <AgeUk />
+              <AgeOk />
             </Typography>
 
             <Typography

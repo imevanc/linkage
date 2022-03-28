@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Card, CardMedia } from "@mui/material";
 
-const AgeUk = () => {
+const AgeOk = () => {
   return (
     <Card
       component={Link}
@@ -18,11 +18,11 @@ const AgeUk = () => {
         sx={{
           display: { xs: "flex", md: "flex", sm: "block" },
         }}
-        image={process.env.PUBLIC_URL + "logo.png"}
-        alt="ageuk logo"
+        image={process.env.PUBLIC_URL + "age-ok.png"}
+        alt="age-ok logo"
       />
     </Card>
   );
 };
 
-export default AgeUk;
+export default AgeOk;
