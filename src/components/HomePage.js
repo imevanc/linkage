@@ -15,15 +15,11 @@ import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import { Link } from "react-router-dom";
 import DonateNow from "./DonateNow";
-
-// TODO
-// * Validation with the sign in form and get /api/users call
-// * remember me box ?
-// * forgot password link to a react-router-dom link
-// * associate the user with the user avatar after the successful usr validation
+import * as api from "../api.js";
 
 const HomePage = () => {
   const ourTheme = useContext(ThemeContext);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -31,6 +27,17 @@ const HomePage = () => {
       email: data.get("email"),
       password: data.get("password"),
     });
+    return api
+      .loginUser({
+        email: data.get("email"),
+        password: data.get("password"),
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -91,6 +98,7 @@ const HomePage = () => {
               fullWidth
               variant="contained"
               color="success"
+              onSubmit={handleSubmit}
               sx={{
                 mt: 3,
                 mb: 2,
@@ -107,9 +115,6 @@ const HomePage = () => {
             </Button>
             <DonateNow />
             <Grid container>
-              <Grid item xs>
-                {/* <Link>Forgot password?</Link> */}
-              </Grid>
               <Grid item>
                 <Link to="/signup" style={{ textDecoration: "none" }}>
                   <Typography

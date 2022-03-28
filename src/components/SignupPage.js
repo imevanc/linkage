@@ -13,14 +13,7 @@ import Container from "@mui/material/Container";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import ScrollDownMenu from "./ScrollDownMenu";
-
-// TODO
-// * create a react-router-dom link and replace the mui link
-// * associate the above link with the homepage
-// * post req to the db in order to push the new user
-// * check if we need more information about the user when they Sign up
-// * volunteer and visitee use the same form, do we need a field to check the status of them
-// * responsive password check with regex probably - eg at least one capital, one lowcase and a number and 10 digits long
+import * as api from "../api.js";
 
 const SignUpPage = () => {
   const ourTheme = useContext(ThemeContext);
@@ -29,12 +22,14 @@ const SignUpPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    return api.createUser({
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
       email: data.get("email"),
-      postCode: data.get("postCode"),
+      postcode: data.get("postcode"),
       userRole: userRole,
+      approved: Boolean(false),
+      password: data.get("password"),
     });
   };
 
@@ -93,11 +88,22 @@ const SignUpPage = () => {
               <TextField
                 required
                 fullWidth
-                name="postCode"
+                type="password"
+                id="password"
+                label="Password"
+                name="password"
+                autoComplete="password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="postcode"
                 label="Post Code"
-                type="postCode"
-                id="postCode"
-                autoComplete="new-postCode"
+                type="postcode"
+                id="postcode"
+                autoComplete="new-postcode"
               />
             </Grid>
           </Grid>
