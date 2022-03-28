@@ -6,7 +6,7 @@ const api = axios.create({
 
 export const createUser = async (user) => {
   return api({
-    method: "post",
+    method: "POST",
     url: "/auth/signup",
     data: user,
   })
@@ -20,7 +20,7 @@ export const createUser = async (user) => {
 
 export const loginUser = async (body) => {
   return api({
-    method: "post",
+    method: "POST",
     url: "/auth/login",
     data: body,
   })
