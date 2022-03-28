@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
-const UserCard = () => {
+const UserCard = (props) => {
   return (
     <Box
       sx={{
@@ -16,7 +16,12 @@ const UserCard = () => {
         alignItems: "center",
       }}
     >
-      <Card sx={{ display: "flex" }}>
+      <Card
+        sx={{
+          display: "flex",
+          border: `5px solid ${props.border}`,
+        }}
+      >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h6">
