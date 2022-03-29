@@ -9,12 +9,12 @@ const api = axios.create({
   },
 });
 
-export const getUsers = async () => {
+
+export const createUser = async (user) => {
   return api({
-    method: "get",
-    url: "/users",
-    withCredentials: true,
-    headers: authHeader(),
+    method: "POST",
+    url: "/auth/signup",
+    data: user,
   })
     .then((res) => {
       return res.data;
@@ -22,4 +22,43 @@ export const getUsers = async () => {
     .catch((error) => {
       console.log(error);
     });
+};
+
+export const loginUser = async (body) => {
+  return api({
+    method: "POST",
+    url: "/auth/login",
+    data: body,
+  })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+
+export const getUsers = async () => {
+  return api({
+    method: "GET",
+    url: "/users",
+    withCredentials: true,
+    headers: authHeader(),
+  })
+    .then((res) => {
+      return res.data.users;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const getUsersByID = async (_id) => {
+  return api({
+    method: "GET",
+    url: `/users/${_id}`,
+  }).then((res) => {
+    return res.data.user;
+  });
 };

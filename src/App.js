@@ -19,6 +19,7 @@ const App = () => {
         <ThemeProvider theme={ourTheme}>
           <CssBaseline />
           <Header ourMode={ourMode} setOurMode={setOurMode} />
+
           {/* <MapLayout /> */}
           <Routes>
             <Route path="/" element={<HomePage />} ourMode={ourMode} />
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/donate" element={<DonatePage />} />
             <Route path="/signup" element={<SignUpPage />} />
           </Routes>
+
         </ThemeProvider>
       </ThemeContext.Provider>
     </BrowserRouter>
