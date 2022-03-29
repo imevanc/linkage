@@ -19,7 +19,8 @@ import { ThemeContext } from "../theme/ThemeContext";
 import AgeOk from "./AgeOk";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-const account = ["Profile", "Visitees", "Logout"];
+
+const account = ["Profile", "Logout"];
 
 const Header = (props) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
