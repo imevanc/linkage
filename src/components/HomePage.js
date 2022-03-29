@@ -36,7 +36,8 @@ const HomePage = () => {
         password: data.get("password"),
       })
       .then((result) => {
-        console.log("res", result);
+        result.accessToken &&
+          localStorage.setItem("user", JSON.stringify(result));
         bake_cookie(cookie_key, result.accessToken);
         setIsLoading(false);
         navigate("/map");
