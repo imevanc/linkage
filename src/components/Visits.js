@@ -23,8 +23,8 @@ const Visits = (props) => {
   const ourTheme = useContext(ThemeContext);
   const [visits, setVisits] = React.useState(props.visits);
   const handleVisits = () => {
-    // console.log(props.visits, " + 1");
-    return api.setVisitsByID(props.id, 1);
+    console.log(props.visits, " + 1");
+    // return api.setVisitsByID(props.id, 1);
   };
   return (
     <Box>
