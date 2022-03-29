@@ -4,7 +4,7 @@ import HandshakeIcon from "@mui/icons-material/Handshake";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import * as api from "../api.js";
+import * as api from "../api.js"; // eslint-disable-line
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 const useStyles = makeStyles((theme) => ({
@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
 const Visits = (props) => {
   const classes = useStyles();
   const ourTheme = useContext(ThemeContext);
-  const [visits, setVisits] = React.useState(props.visits);
+  const [visits, setVisits] = React.useState(props.visits); // eslint-disable-line
   const handleVisits = () => {
     console.log(props.visits, " + 1");
     // return api.setVisitsByID(props.id, 1);
-  };
+  }; // eslint-disable-line
   return (
     <Box>
       <Typography
