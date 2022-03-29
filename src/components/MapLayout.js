@@ -4,12 +4,13 @@ import LinearColor from "./LinearColor";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import * as api from "../api.js";
+import * as api from "../auth.js";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import VisiteeCard from "./VisiteeCard";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
+import Cookies from "js-cookie";
 
 const configLeaflet = () => {
   delete L.Icon.Default.prototype._getIconUrl;
