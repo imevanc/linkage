@@ -17,6 +17,8 @@ import { Link, useNavigate } from "react-router-dom";
 import DonateNow from "./DonateNow";
 import * as api from "../api.js";
 import { bake_cookie } from "sfcookies";
+import LinearColor from "./LinearColor";
+import ErrorCard from "./ErrorCard";
 
 const HomePage = () => {
   const ourTheme = useContext(ThemeContext);
@@ -26,7 +28,6 @@ const HomePage = () => {
   const [error, setError] = useState(null);
 
   const handleLogin = (data) => {
-    console.log({ email: data.get("email"), password: data.get("password") });
     setError(null);
     setIsLoading(true);
     return api
@@ -105,8 +106,6 @@ const HomePage = () => {
               label="Remember me"
             />
             <Button
-              // component={Link}
-              // to={"/map"}
               type="submit"
               fullWidth
               variant="contained"
@@ -127,25 +126,13 @@ const HomePage = () => {
               </Typography>
             </Button>
             <DonateNow />
-            {isLoading && (
-            <Typography
-              sx={{
-                color: ourTheme.ourTheme.palette.typography.primary.main,
-              }}
-            >
-              ...Loading
-            </Typography>
-          )}
-
-          {error && (
-            <Typography
-              sx={{
-                color: ourTheme.ourTheme.palette.typography.primary.main,
-              }}
-            >
-              {error}
-            </Typography>
-          )}
+            {isLoading ? (
+              <LinearColor />
+            ) : error ? (
+              <ErrorCard message={"Login Failed"} />
+            ) : (
+              " "
+            )}
             <Grid container>
               <Grid item>
                 <Link to="/signup" style={{ textDecoration: "none" }}>
