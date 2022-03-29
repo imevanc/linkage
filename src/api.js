@@ -37,20 +37,6 @@ export const createUser = async (user) => {
     });
 };
 
-export const loginUser = async (body) => {
-  console.log(body);
-  return api({
-    method: "POST",
-    url: "/auth/login",
-    data: body,
-  })
-    .then((res) => {
-      return res.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
 export const getUsers = async () => {
   return api({
     method: "GET",

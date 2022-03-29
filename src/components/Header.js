@@ -17,6 +17,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import AgeOk from "./AgeOk";
+import { Link } from "react-router-dom";
 
 const account = ["Profile", "Visitees", "Logout"];
 
@@ -125,7 +126,19 @@ const Header = (props) => {
               >
                 {account.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Link to={"/volunteer"} style={{ textDecoration: "none" }}>
+                      <Typography
+                        textAlign="center"
+                        sx={{
+                          color: "black",
+                          "&:hover": {
+                            opacity: [0.9, 0.9, 0.8],
+                          },
+                        }}
+                      >
+                        {setting}
+                      </Typography>
+                    </Link>
                   </MenuItem>
                 ))}
               </Menu>
