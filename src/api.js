@@ -9,7 +9,6 @@ const api = axios.create({
   },
 });
 
-
 export const createUser = async (user) => {
   return api({
     method: "POST",
@@ -38,7 +37,6 @@ export const loginUser = async (body) => {
     });
 };
 
-
 export const getUsers = async () => {
   return api({
     method: "GET",
@@ -58,7 +56,11 @@ export const getUsersByID = async (_id) => {
   return api({
     method: "GET",
     url: `/users/${_id}`,
-  }).then((res) => {
-    return res.data.user;
-  });
+  })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };

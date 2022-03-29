@@ -9,6 +9,7 @@ import HomePage from "./components/HomePage";
 import DonatePage from "./components/DonatePage";
 import SignUpPage from "./components/SignupPage";
 import MapLayout from "./components/MapLayout";
+import VisiteeProfileCard from "./components/VisiteeProfileCard";
 
 const App = () => {
   const [ourMode, setOurMode] = useState("light");
@@ -19,15 +20,17 @@ const App = () => {
         <ThemeProvider theme={ourTheme}>
           <CssBaseline />
           <Header ourMode={ourMode} setOurMode={setOurMode} />
-
-          {/* <MapLayout /> */}
           <Routes>
             <Route path="/" element={<HomePage />} ourMode={ourMode} />
-            <Route path="/map" element={<MapLayout />} />
+            <Route
+              path="/users/:_id"
+              element={<VisiteeProfileCard />}
+              ourMode={ourMode}
+            />
+            <Route path="/map" element={<MapLayout />} ourMode={ourMode} />
             <Route path="/donate" element={<DonatePage />} />
             <Route path="/signup" element={<SignUpPage />} />
           </Routes>
-
         </ThemeProvider>
       </ThemeContext.Provider>
     </BrowserRouter>
