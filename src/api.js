@@ -44,3 +44,16 @@ export const getUsers = async () => {
       console.log(error);
     });
 };
+
+export const getUsersByID = async (_id) => {
+  return api({
+    method: "GET",
+    url: `/users/${_id}`,
+  })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

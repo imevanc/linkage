@@ -29,7 +29,9 @@ const MapLayout = () => {
     ourTheme.ourTheme.palette.secondary.main
   );
   const filterUsers = (users) => {
-    return users.filter((user) => user.latitude && user.longitude);
+    return users.filter(
+      (user) => user.latitude && user.longitude && user.userRole === "visitee"
+    );
   };
   React.useEffect(() => {
     const fetchUsers = async () => {

@@ -19,7 +19,7 @@ const AgeOk = () => {
           display: { xs: "flex", md: "flex", sm: "block" },
         }}
         image={process.env.PUBLIC_URL + "age-ok.png"}
-        alt="age-ok logo"
+        alt="age-ok"
       />
     </Card>
   );

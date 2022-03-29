@@ -47,8 +47,7 @@ const VisiteeCard = (props) => {
             </Typography>
             <Button
               component={Link}
-              state={{ user: props.user }}
-              to={`/visitee`}
+              to={`/users/${props.user._id}`}
               variant="contained"
               type="submit"
               sx={{

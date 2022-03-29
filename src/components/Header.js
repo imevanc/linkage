@@ -7,6 +7,9 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -93,7 +96,17 @@ const Header = (props) => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open account">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User" src="/a-broken-link" />
+                  <CardMedia
+                    component="img"
+                    sx={{
+                      width: "50px",
+                      height: "50px",
+                      paddingTop: "5px",
+                    }}
+                    variant="rounded"
+                    alt="User"
+                    src="https://source.unsplash.com/random?humans"
+                  />
                 </IconButton>
               </Tooltip>
               <Menu

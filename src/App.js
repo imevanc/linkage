@@ -23,7 +23,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} ourMode={ourMode} />
             <Route
-              path="/visitee"
+              path="/users/:_id"
               element={<VisiteeProfileCard />}
               ourMode={ourMode}
             />
