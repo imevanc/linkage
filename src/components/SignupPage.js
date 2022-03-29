@@ -13,7 +13,7 @@ import Container from "@mui/material/Container";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import ScrollDownMenu from "./ScrollDownMenu";
-import * as api from "../api.js";
+import * as api from "../auth.js";
 
 const SignUpPage = () => {
   const ourTheme = useContext(ThemeContext);
@@ -22,15 +22,19 @@ const SignUpPage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    return api.createUser({
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      postcode: data.get("postcode"),
-      userRole: userRole,
-      approved: Boolean(false),
-      password: data.get("password"),
-    });
+    return api
+      .createUser({
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        email: data.get("email"),
+        postcode: data.get("postcode"),
+        userRole: userRole,
+        approved: Boolean(false),
+        password: data.get("password"),
+      })
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   return (
