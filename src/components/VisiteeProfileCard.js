@@ -4,6 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import Paper from "@mui/material/Paper";
@@ -12,6 +13,10 @@ import { useParams } from "react-router-dom";
 import * as api from "../api.js";
 import LinearColor from "./LinearColor";
 import Container from "@mui/material/Container";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const VisiteeProfileCard = () => {
   const ourTheme = useContext(ThemeContext);
@@ -39,7 +44,7 @@ const VisiteeProfileCard = () => {
             sx={{ height: "100%", display: "flex", flexDirection: "column" }}
           >
             <CardContent sx={{ flexGrow: 1 }}>
-              <Typography gutterBottom variant="h6" component="h2" align="left">
+              <Typography gutterBottom variant="h5" component="h2" align="left">
                 {user.firstName} {user.lastName}
               </Typography>
               <Typography
@@ -49,6 +54,34 @@ const VisiteeProfileCard = () => {
                 Member since:{" "}
                 {user.createdAt.split("T")[0].split("-").reverse().join("-")}
               </Typography>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography
+                    align="left"
+                    sx={{
+                      fontSize:
+                        ourTheme.ourTheme.palette.typography.aboutFontSize,
+                    }}
+                  >
+                    Bio
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography
+                    align="left"
+                    sx={{
+                      fontSize:
+                        ourTheme.ourTheme.palette.typography.aboutFontSize,
+                    }}
+                  >
+                    I play the guitar
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
             </CardContent>
             <CardActions
               sx={{ display: "flex", justifycontent: "space-between" }}
@@ -58,8 +91,7 @@ const VisiteeProfileCard = () => {
                 type="submit"
                 sx={{
                   fontSize: ourTheme.ourTheme.palette.button.smallFontSize,
-                  backgroundColor:
-                    ourTheme.ourTheme.palette.button.secondary.main,
+                  backgroundColor: ourTheme.ourTheme.palette.button.color.main,
                 }}
                 size="small"
               >

@@ -14,7 +14,8 @@ const Theme = (ourMode) => {
         main: "white",
       },
       typography: {
-        fontSize: "0.9rem",
+        fontSize: "0.8rem",
+        aboutFontSize: "1rem",
         primary: {
           main: "#4caf50",
         },
@@ -32,7 +33,7 @@ const Theme = (ourMode) => {
           main: "white",
         },
         secondary: {
-          main: "2e40a6",
+          main: "#2e40a6",
         },
       },
       expansionPanel: {

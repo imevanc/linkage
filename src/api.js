@@ -24,6 +24,7 @@ export const createUser = async (user) => {
 };
 
 export const loginUser = async (body) => {
+  console.log(body);
   return api({
     method: "POST",
     url: "/auth/login",
@@ -56,6 +57,20 @@ export const getUsersByID = async (_id) => {
   return api({
     method: "GET",
     url: `/users/${_id}`,
+  })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const setVisitsByID = async (_id, visits) => {
+  return api({
+    method: "PATCH",
+    url: `/visits/${_id}`,
+    data: visits,
   })
     .then((res) => {
       return res.data;
