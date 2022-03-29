@@ -19,29 +19,29 @@ export const createUser = async (user) => {
     .then((res) => {
       return res.data;
     })
-    .catch((error) => {
+    .ncatch((error) => {
       console.log(error);
     });
 };
 
-export const loginUser = async (body) => {
+export const loginUser = (body) => {
+  console.log(body);
   return api({
     method: "post",
     url: "/auth/login",
     data: body,
-    // withCredentials: true, // Now this is was the missing piece in the client side
-  })
-    .then((response) => {
-      if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    withCredentials: true, // Now this is was the missing piece in the client side
+  }).then((response) => {
+    console.log(response.data);
+    if (response.data.accessToken) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+    return response.data;
+  });
 };
-
+export const getCurrentUser = () => {
+  return JSON.parse(localStorage.getItem("user"));
+};
 export const logout = () => {
   localStorage.removeItem("user");
 };
