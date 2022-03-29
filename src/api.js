@@ -1,41 +1,20 @@
 import axios from "axios";
-
+import authHeader from "./auth";
 const api = axios.create({
-  baseURL: "https://final-project-ukage-be.herokuapp.com/api",
+  withCredentials: true,
+  credentials: "include",
+  baseURL: "https://auth-group.herokuapp.com/api",
+  headers: {
+    "Content-type": "application/json",
+  },
 });
-
-export const createUser = async (user) => {
-  return api({
-    method: "post",
-    url: "/auth/signup",
-    data: user,
-  })
-    .then((res) => {
-      return res.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-export const loginUser = async (body) => {
-  return api({
-    method: "post",
-    url: "/auth/login",
-    data: body,
-  })
-    .then((res) => {
-      return res.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
 
 export const getUsers = async () => {
   return api({
     method: "get",
     url: "/users",
+    withCredentials: true,
+    headers: authHeader(),
   })
     .then((res) => {
       return res.data;
