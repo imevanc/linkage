@@ -16,24 +16,11 @@ import { ThemeContext } from "../theme/ThemeContext";
 import { Link } from "react-router-dom";
 import DonateNow from "./DonateNow";
 import * as api from "../auth.js";
-import { bake_cookie, read_cookie, delete_cookie } from "sfcookies";
+import { bake_cookie } from "sfcookies";
 
 const HomePage = () => {
   const ourTheme = useContext(ThemeContext);
   const cookie_key = "x-access-token";
-
-  // const loginHandler = async (data) => {
-  //   try {
-  //     const response = await api.loginUser({
-  //       email: data.get("email"),
-  //       password: data.get("password"),
-  //     });
-  //     bake_cookie(cookie_key, response.data["x-access-token"]);
-  //     // const cookie_key = response.data["x-access-token"];
-  //   } catch {
-  //     console.log("error");
-  //   }
-  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,24 +31,11 @@ const HomePage = () => {
         password: data.get("password"),
       })
       .then((result) => {
-        console.log(result);
         bake_cookie(cookie_key, result.accessToken);
       })
       .catch((error) => {
         console.log(error);
       });
-
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
-    // return
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   };
 
   return (

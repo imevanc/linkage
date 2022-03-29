@@ -10,7 +10,6 @@ import L from "leaflet";
 import VisiteeCard from "./VisiteeCard";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
-import Cookies from "js-cookie";
 
 const configLeaflet = () => {
   delete L.Icon.Default.prototype._getIconUrl;

@@ -29,7 +29,7 @@ const App = () => {
             />
             <Route path="/map" element={<MapLayout />} ourMode={ourMode} />
             <Route path="/donate" element={<DonatePage />} />
-            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/signup" element={<SignUpPage />} ourMode={ourMode} />
           </Routes>
         </ThemeProvider>
       </ThemeContext.Provider>

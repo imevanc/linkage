@@ -6,8 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 
 import Tooltip from "@mui/material/Tooltip";

@@ -45,7 +45,7 @@ export const getUsers = async () => {
     headers: authHeader(),
   })
     .then((res) => {
-      return res.data.users;
+      return res.data;
     })
     .catch((error) => {
       console.log(error);

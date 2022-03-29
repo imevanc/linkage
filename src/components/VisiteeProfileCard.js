@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
-import { Link } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import React from "react";
 import { useParams } from "react-router-dom";
