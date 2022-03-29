@@ -34,20 +34,20 @@ export const loginUser = (body) => {
   }).then((response) => {
     console.log(response.data);
     if (response.data.accessToken) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+      window.localStorage.setItem("user", JSON.stringify(response.data));
     }
     return response.data;
   });
 };
 export const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+  return JSON.parse(window.localStorage.getItem("user"));
 };
 export const logout = () => {
   localStorage.removeItem("user");
 };
 
 export default function authHeader() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(window.localStorage.getItem("user"));
   if (user && user.accessToken) {
     // for Node.js Express back-end
     return { "x-access-token": user.accessToken };
