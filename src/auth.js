@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  withCredentials: true,
+  // withCredentials: true,
   credentials: "include",
   baseURL: "https://final-project-ukage-be.herokuapp.com/api",
   headers: {
@@ -14,12 +14,12 @@ export const createUser = async (user) => {
     method: "post",
     url: "/auth/signup",
     data: user,
-    withCredentials: true, // Now this is was the missing piece in the client side
+    // withCredentials: true, // Now this is was the missing piece in the client side
   })
     .then((res) => {
       return res.data;
     })
-    .ncatch((error) => {
+    .catch((error) => {
       console.log(error);
     });
 };
@@ -30,7 +30,7 @@ export const loginUser = (body) => {
     method: "post",
     url: "/auth/login",
     data: body,
-    withCredentials: true, // Now this is was the missing piece in the client side
+    // withCredentials: true, // Now this is was the missing piece in the client side
   }).then((response) => {
     console.log(response.data);
     if (response.data.accessToken) {
@@ -59,7 +59,7 @@ export const getUsers = async () => {
   return api({
     method: "get",
     url: "/users",
-    withCredentials: true,
+    // withCredentials: true,
     headers: authHeader(),
   })
     .then((res) => {
