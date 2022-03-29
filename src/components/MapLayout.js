@@ -30,8 +30,7 @@ const MapLayout = () => {
 
   React.useEffect(() => {
     const fetchUsers = () => {
-      const cookie = Cookies.get("x-access-token");
-      return api.getUsers(cookie).then((users) => {
+      return api.getUsers().then((users) => {
         console.log(users);
       });
     };

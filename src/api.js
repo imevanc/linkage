@@ -3,7 +3,7 @@ import authHeader from "./auth";
 const api = axios.create({
   withCredentials: true,
   credentials: "include",
-  baseURL: "https://auth-group.herokuapp.com/api",
+  baseURL: "https://final-project-ukage-be.herokuapp.com/api",
   headers: {
     "Content-type": "application/json",
   },
