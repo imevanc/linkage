@@ -9,7 +9,6 @@ const api = axios.create({
   },
 });
 
-<<<<<<< HEAD
 export const createUser = async (user) => {
   return api({
     method: "POST",
@@ -39,8 +38,6 @@ export const loginUser = async (body) => {
     });
 };
 
-=======
->>>>>>> c814f393d34fa91a76a757d0490551cf15473e77
 export const getUsers = async () => {
   return api({
     method: "GET",
