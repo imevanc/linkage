@@ -13,7 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DonateNow from "./DonateNow";
 import * as api from "../api.js";
 import { bake_cookie } from "sfcookies";
@@ -21,10 +21,11 @@ import { bake_cookie } from "sfcookies";
 const HomePage = () => {
   const ourTheme = useContext(ThemeContext);
   const cookie_key = "x-access-token";
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const handleLogin = (data) => {
+    console.log({ email: data.get("email"), password: data.get("password") });
+
     return api
       .loginUser({
         email: data.get("email"),
@@ -33,10 +34,16 @@ const HomePage = () => {
       .then((result) => {
         console.log("res", result);
         bake_cookie(cookie_key, result.accessToken);
+        navigate("/map");
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    handleLogin(data);
   };
 
   return (
@@ -93,8 +100,8 @@ const HomePage = () => {
               label="Remember me"
             />
             <Button
-              component={Link}
-              to={"/map"}
+              // component={Link}
+              // to={"/map"}
               type="submit"
               fullWidth
               variant="contained"
