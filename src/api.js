@@ -9,7 +9,20 @@ const api = axios.create({
   },
 });
 
-<<<<<<< HEAD
+export const loginUser = async (body) => {
+  console.log(body);
+  return api({
+    method: "POST",
+    url: "/auth/login",
+    data: body,
+  })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 export const createUser = async (user) => {
   return api({
     method: "POST",
@@ -38,9 +51,6 @@ export const loginUser = async (body) => {
       console.log(error);
     });
 };
-
-=======
->>>>>>> c814f393d34fa91a76a757d0490551cf15473e77
 export const getUsers = async () => {
   return api({
     method: "GET",
