@@ -15,7 +15,7 @@ import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import { Link, useNavigate } from "react-router-dom";
 import DonateNow from "./DonateNow";
-import * as api from "../auth.js";
+import * as api from "../api.js";
 import { bake_cookie } from "sfcookies";
 
 const HomePage = () => {
@@ -32,7 +32,7 @@ const HomePage = () => {
         password: data.get("password"),
       })
       .then((result) => {
-        console.log(result);
+        console.log("res", result);
         bake_cookie(cookie_key, result.accessToken);
         navigate("/map");
       })

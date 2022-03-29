@@ -52,8 +52,7 @@ const VisiteeCard = (props) => {
               type="submit"
               sx={{
                 fontSize: ourTheme.ourTheme.palette.button.smallFontSize,
-                backgroundColor:
-                  ourTheme.ourTheme.palette.button.secondary.main,
+                backgroundColor: ourTheme.ourTheme.palette.button.color.main,
                 "&:hover": { opacity: [0.9, 0.9, 0.8] },
               }}
               size="small"
