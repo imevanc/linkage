@@ -19,7 +19,7 @@ export const createUser = async (user) => {
     .then((res) => {
       return res.data;
     })
-    .ncatch((error) => {
+    .catch((error) => {
       console.log(error);
     });
 };
