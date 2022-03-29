@@ -34,13 +34,22 @@ export const loginUser = async (body) => {
 
 export const getUsers = async () => {
   return api({
-    method: "get",
+    method: "GET",
     url: "/users",
   })
     .then((res) => {
-      return res.data;
+      return res.data.users;
     })
     .catch((error) => {
       console.log(error);
     });
+};
+
+export const getUsersByID = async (_id) => {
+  return api({
+    method: "GET",
+    url: `/users/${_id}`,
+  }).then((res) => {
+    return res.data.user;
+  });
 };
