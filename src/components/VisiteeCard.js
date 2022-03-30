@@ -8,8 +8,16 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
+import moment from "moment";
 
 const VisiteeCard = (props) => {
+  const split = props.user.updatedAt.split("T")[0].split("-").join("");
+  const fromNow = moment(split, "YYYYMMDD").fromNow();
+  let daysAgo = fromNow.split(" ")[0];
+  daysAgo === "a" ? (daysAgo = 0) : Number(daysAgo);
+  const lastTimeSeenColor =
+    daysAgo === 0 ? "green" : daysAgo > 0 && daysAgo <= 2 ? "orange" : "red";
+
   const ourTheme = useContext(ThemeContext);
   return (
     <Box
@@ -24,13 +32,13 @@ const VisiteeCard = (props) => {
       <Card
         sx={{
           display: "flex",
-          border: `5px solid ${props.border}`,
+          border: `5px solid ${lastTimeSeenColor}`,
           "&:hover": {
             border: `5px solid ${ourTheme.ourTheme.palette.primary.main}`,
           },
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", width: "170px" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h6">
               {props.user.firstName}
@@ -61,9 +69,9 @@ const VisiteeCard = (props) => {
             </Button>
           </CardContent>
 
-          <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+          {/* <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
             Traffic Light Icon
-          </Box>
+          </Box> */}
         </Box>
 
         <CardMedia
