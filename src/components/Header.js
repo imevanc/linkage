@@ -19,7 +19,7 @@ import { ThemeContext } from "../theme/ThemeContext";
 import AgeOk from "./AgeOk";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-
+import logout from "../auth";
 const account = ["Profile", "Logout"];
 
 const Header = (props) => {
@@ -143,6 +143,9 @@ const Header = (props) => {
                       </Button>
                     ) : (
                       <Button
+                        onClick={() => {
+                          logout();
+                        }}
                         sx={{
                           "&:hover": {
                             border: "1px dashed grey",
