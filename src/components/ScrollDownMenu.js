@@ -5,6 +5,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Container from "@mui/material/Container";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useState } from "react";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -50,15 +51,21 @@ const StyledMenu = styled((props) => (
 }));
 
 const ScrollDownMenu = (props) => {
+  const [chosenRole, setChosenRole] = useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  
   const handleClick = (event) => {
+    event.preventDefault();
     setAnchorEl(event.currentTarget);
   };
+  
   const handleClose = (event) => {
+    event.preventDefault();
     const { myValue } = event.currentTarget.dataset;
     props.setUserRole(myValue);
     setAnchorEl(null);
+    setChosenRole(myValue);
   };
 
   return (
@@ -73,7 +80,7 @@ const ScrollDownMenu = (props) => {
         fullWidth
         sx={{ mt: 3, mb: 2 }}
       >
-        I would like to be a
+        {chosenRole.length === 0 ? "Sign up as a …" : `Sign up as a ${chosenRole}`}
       </Button>
       <StyledMenu
         MenuListProps={{
