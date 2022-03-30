@@ -11,16 +11,12 @@ import { ThemeContext } from "../theme/ThemeContext";
 import moment from "moment";
 
 const VisiteeCard = (props) => {
-  console.log(props.user);
-
   const split = props.user.updatedAt.split("T")[0].split("-").join("");
   const fromNow = moment(split, "YYYYMMDD").fromNow();
   let daysAgo = fromNow.split(" ")[0];
   daysAgo === "a" ? (daysAgo = 0) : Number(daysAgo);
   const lastTimeSeenColor =
     daysAgo === 0 ? "green" : daysAgo > 0 && daysAgo <= 2 ? "orange" : "red";
-
-  console.log(daysAgo);
 
   const ourTheme = useContext(ThemeContext);
   return (
