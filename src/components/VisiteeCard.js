@@ -8,16 +8,37 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
-import moment from "moment";
+import Color from "color";
 
 const VisiteeCard = (props) => {
-  const split = props.user.updatedAt.split("T")[0].split("-").join("");
-  const fromNow = moment(split, "YYYYMMDD").fromNow();
-  let daysAgo = fromNow.split(" ")[0];
-  daysAgo === "a" ? (daysAgo = 0) : Number(daysAgo);
-  const lastTimeSeenColor =
-    daysAgo === 0 ? "green" : daysAgo > 0 && daysAgo <= 2 ? "orange" : "red";
+  const lastVisit = props.user.lastVisit;
+  const postCode = props.user.postcode;
+  const lastVisitTime = lastVisit[lastVisit.length - 1];
 
+  let lastTimeSeenColor;
+
+  if (!lastVisitTime) {
+    lastTimeSeenColor = "#A83F4D";
+  } else {
+    const newTime = new Date(lastVisit[lastVisit.length - 1]).getTime();
+    const nowTime = new Date().getTime();
+    const countTimeDiff = (nowTime - newTime) / 1000;
+
+    lastTimeSeenColor =
+      countTimeDiff <= 86400
+        ? "#388F60"
+        : countTimeDiff > 86400 && countTimeDiff <= 259200
+        ? "#9E7328"
+        : " #A83F4D";
+  }
+  const transformedStartPC = postCode
+    .split("")
+    .slice(0, -3)
+    .join("")
+    .toUpperCase();
+
+  const transformedEndPC = postCode.split("").slice(-3).join("").toUpperCase();
+  const newPostCode = `${transformedStartPC} ${transformedEndPC}`;
   const ourTheme = useContext(ThemeContext);
   return (
     <Box
@@ -32,13 +53,16 @@ const VisiteeCard = (props) => {
       <Card
         sx={{
           display: "flex",
-          border: `5px solid ${lastTimeSeenColor}`,
-          "&:hover": {
-            border: `5px solid ${ourTheme.ourTheme.palette.primary.main}`,
-          },
+          border: `5px solid  ${Color(lastTimeSeenColor).alpha(0.9).string()}`,
+          borderRadius: "20px",
+          alignItems: "center",
+          backgroundColor: Color(lastTimeSeenColor).alpha(0.5).string(),
+          textDecoration: "none",
         }}
+        component={Link}
+        to={`/users/${props.user._id}`}
       >
-        <Box sx={{ display: "flex", flexDirection: "column", width: "170px" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", width: "150px" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h6">
               {props.user.firstName}
@@ -51,9 +75,9 @@ const VisiteeCard = (props) => {
               color="text.secondary"
               component="div"
             >
-              {props.user.postcode}
+              {newPostCode}
             </Typography>
-            <Button
+            {/* <Button
               component={Link}
               to={`/users/${props.user._id}`}
               variant="contained"
@@ -66,20 +90,21 @@ const VisiteeCard = (props) => {
               size="small"
             >
               <Typography sx={{ align: "right" }}>View</Typography>
-            </Button>
+            </Button> */}
           </CardContent>
-
-          {/* <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-            Traffic Light Icon
-          </Box> */}
         </Box>
 
         <CardMedia
           component="img"
-          sx={{ width: "150px", height: "100px", paddingTop: "15px" }}
+          sx={{
+            width: "100px",
+            height: "100px",
+            margin: "-15px 15px 0 10px",
+            borderRadius: "50%",
+          }}
           variant="rounded"
           alt="Random Image"
-          src="https://source.unsplash.com/random"
+          src={props.user.avatar_url}
         />
       </Card>
     </Box>

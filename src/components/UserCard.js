@@ -49,6 +49,7 @@ const UserCard = () => {
       await api
         .getUsersByID(id)
         .then((response) => {
+          console.log(response);
           return response;
         })
         .then((fetchedUser) => setUser(fetchedUser));
@@ -67,7 +68,11 @@ const UserCard = () => {
           style={{ display: "flex", flexDirection: "column" }}
         >
           <CardMedia align="center">
-            <Avatar alt="User" src="/a-broken-link" className={classes.large} />
+            <Avatar
+              alt="User"
+              src={user.avatar_url}
+              /*"/a-broken-link"*/ className={classes.large}
+            />
           </CardMedia>
           <CardContent className={classes.cardContent}>
             <Typography
@@ -96,23 +101,16 @@ const UserCard = () => {
               <LocationOnIcon className={classes.avatar} fontSize="small" />
               {user.postcode}
             </Typography>{" "}
-            <Visits visits={user.visits} id={visiteeId} />
+            <Visits user={user} />
             <Typography
               className={classes.text}
               color="textSecondary"
               variant="subtitle1"
               align="left"
+              sx={{ padding: "20px" }}
             >
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
+              <strong>About Me:</strong>
+              {user.bio}
             </Typography>{" "}
           </CardContent>
         </Card>

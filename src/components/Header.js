@@ -15,6 +15,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { ThemeContext } from "../theme/ThemeContext";
 import AgeOk from "./AgeOk";
 import { Link } from "react-router-dom";
+
 import { Avatar, Button } from "@mui/material";
 import { getCurrentUser } from "../auth";
 
@@ -24,6 +25,7 @@ const md5 = require('md5');
 const defaultGravatar = "https://www.gravatar.com/avatar/00000000000000000000000000000000"
 const gravatarBaseUrl = "http://www.gravatar.com/avatar/"
 
+//import logout from "../auth";
 const account = ["Profile", "Logout"];
 
 const Header = (props) => {
@@ -147,8 +149,14 @@ const Header = (props) => {
                       </Button>
                     ) : (
                       <Button
+
                         component={Link}
                         to={"/logout"}
+
+//                         onClick={() => {
+//                           logout();
+//                         }}
+
                         sx={{
                           "&:hover": {
                             border: "1px dashed grey",
