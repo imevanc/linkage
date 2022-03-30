@@ -13,6 +13,11 @@ import { makeStyles } from "@mui/styles";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import { getCurrentUser } from "../auth.js";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import UserDatePicker from "./UserDatePicker.js";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 
 const visitees = [1, 2, 3];
 
@@ -33,21 +38,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const VolunteerProfile = () => {
+  const [bioButton, setBioButton] = React.useState("Edit Bio");
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
   const classes = useStyles();
   const handleAvatarClick = () => {
     console.log("clicked");
   };
-
   const currentUser = getCurrentUser();
-  const defaultGravatar = "https://www.gravatar.com/avatar/00000000000000000000000000000000"
-  
+  console.log(currentUser);
+  const defaultGravatar =
+    "https://www.gravatar.com/avatar/00000000000000000000000000000000";
+
   return (
     <Container>
       <Box
+        component={Paper}
+        elevation={15}
+        bgcolor="grey"
         sx={{
-          bgcolor: "background.paper",
-          pt: 8,
           pb: 6,
+          my: 8,
+          mx: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Container maxWidth="sm">
@@ -76,24 +98,34 @@ const VolunteerProfile = () => {
             color="text.primary"
             gutterBottom
           >
-            Volunteer Full Name
+            {currentUser.firstName} {currentUser.lastName}
           </Typography>
-          <Typography
-            variant="h5"
-            align="center"
-            color="text.secondary"
-            paragraph
-          >
-            Volunteer Information
-          </Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <TextField required id="Bio" label="Edit Bio" fullWidth />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <TextField
+                required
+                id="Interests"
+                label="Edit Interests"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <UserDatePicker />
+            </Grid>
+            <Grid item xs={12} md={6}></Grid>
+          </Grid>
           <Stack
             sx={{ pt: 4 }}
             direction="row"
             spacing={2}
             justifyContent="center"
           >
-            <Button variant="contained">Do Something</Button>
-            <Button variant="outlined">Do Something</Button>
+            <Button variant="contained">Submit</Button>
+            <Button variant="outlined">Cancel</Button>
           </Stack>
         </Container>
       </Box>
