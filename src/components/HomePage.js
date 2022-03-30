@@ -19,11 +19,9 @@ import * as api from "../api.js";
 import { bake_cookie } from "sfcookies";
 import LinearColor from "./LinearColor";
 import ErrorCard from "./ErrorCard";
-import { UserContext } from "../theme/UserContext"
 
 const HomePage = () => {
   const ourTheme = useContext(ThemeContext);
-  const {user, setUser} = useContext(UserContext);
   const cookie_key = "x-access-token";
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -38,12 +36,12 @@ const HomePage = () => {
         password: data.get("password"),
       })
       .then((result) => {
-        setUser(result);
         result.accessToken &&
           localStorage.setItem("user", JSON.stringify(result));
         bake_cookie(cookie_key, result.accessToken);
         setIsLoading(false);
         navigate("/map");
+        window.location.reload(false);
       })
       .catch((error) => {
         setIsLoading(false);

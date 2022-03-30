@@ -12,11 +12,12 @@ import MenuItem from "@mui/material/MenuItem";
 import CustomSwitch from "./CustomSwitch";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { UserContext } from "../theme/UserContext";
 import { ThemeContext } from "../theme/ThemeContext";
 import AgeOk from "./AgeOk";
 import { Link } from "react-router-dom";
 import { Avatar, Button } from "@mui/material";
+import { getCurrentUser } from "../auth";
+
 //import Logout from './Logout.js';
 const md5 = require('md5');
 
@@ -27,7 +28,7 @@ const account = ["Profile", "Logout"];
 
 const Header = (props) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const user = getCurrentUser();
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -37,8 +38,12 @@ const Header = (props) => {
   };
   
   const ourTheme = useContext(ThemeContext);
-  const {user} = useContext(UserContext);
-  const userHashedEmail = gravatarBaseUrl + md5(user.email)
+  
+  let userHashedEmail;
+  if (user) {
+    userHashedEmail = gravatarBaseUrl + md5(user.email)
+  }
+  
   
   return (
     <Container sx={{ paddingTop: "40px" }}>
