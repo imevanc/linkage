@@ -44,7 +44,7 @@ const HomePage = () => {
       })
       .catch((error) => {
         setIsLoading(false);
-        setError(error.message);
+        setError("Invalid passport or email");
       });
   };
   const handleSubmit = (event) => {
