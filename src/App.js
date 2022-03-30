@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import Theme from "./theme/Theme";
 import { useState } from "react";
 import { ThemeContext } from "./theme/ThemeContext";
+import { UserContext } from "./theme/UserContext";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -11,12 +12,16 @@ import SignUpPage from "./components/SignupPage";
 import MapLayout from "./components/MapLayout";
 import UserCard from "./components/UserCard";
 import VolunteerProfile from "./components/VolunteerProfile";
+import Logout from "./components/Logout.js"
+import { getCurrentUser } from "./auth";
 
 const App = () => {
   const [ourMode, setOurMode] = useState("light");
+  const user = getCurrentUser();
   const ourTheme = Theme(ourMode);
   return (
     <BrowserRouter>
+    <UserContext.Provider value={{ user }}>
       <ThemeContext.Provider value={{ ourTheme }}>
         <ThemeProvider theme={ourTheme}>
           <CssBaseline />
@@ -33,13 +38,19 @@ const App = () => {
               element={<VolunteerProfile />}
               ourMode={ourMode}
             />
+            <Route
+              path="/logout"
+              element={<Logout />}
+              ourMode={ourMode}
+            />
             <Route path="/map" element={<MapLayout />} ourMode={ourMode} />
             <Route path="/donate" element={<DonatePage />} />
             <Route path="/signup" element={<SignUpPage />} ourMode={ourMode} />
           </Routes>
         </ThemeProvider>
       </ThemeContext.Provider>
-    </BrowserRouter>
+    </UserContext.Provider>
+  </BrowserRouter>
   );
 };
 

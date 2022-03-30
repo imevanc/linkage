@@ -10,9 +10,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { makeStyles } from "@mui/styles";
-import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import { getCurrentUser } from "../auth.js";
 
 const visitees = [1, 2, 3];
 
@@ -38,9 +35,6 @@ const VolunteerProfile = () => {
     console.log("clicked");
   };
 
-  const currentUser = getCurrentUser();
-  const defaultGravatar = "https://www.gravatar.com/avatar/00000000000000000000000000000000"
-  
   return (
     <Container>
       <Box
@@ -56,18 +50,6 @@ const VolunteerProfile = () => {
             className={classes.card}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <CardMedia align="center">
-              <IconButton onClick={handleAvatarClick}>
-                <Avatar
-                  src={currentUser.avatar_url || defaultGravatar}
-                  style={{
-                    margin: "10px",
-                    width: "60px",
-                    height: "60px",
-                  }}
-                />
-              </IconButton>
-            </CardMedia>
           </Card>
           <Typography
             component="h1"
@@ -76,7 +58,6 @@ const VolunteerProfile = () => {
             color="text.primary"
             gutterBottom
           >
-            Volunteer Full Name
           </Typography>
           <Typography
             variant="h5"
