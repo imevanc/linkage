@@ -10,6 +10,7 @@ import L from "leaflet";
 import VisiteeCard from "./VisiteeCard";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const configLeaflet = () => {
   delete L.Icon.Default.prototype._getIconUrl;
@@ -21,6 +22,8 @@ const configLeaflet = () => {
 };
 
 const MapLayout = () => {
+  const matches = useMediaQuery("(min-width:600px)");
+
   const ourTheme = useContext(ThemeContext);
   configLeaflet();
   const [users, setUsers] = React.useState([]);
@@ -41,10 +44,26 @@ const MapLayout = () => {
     };
     fetchUsers().catch((error) => console.log(error));
   }, []);
-
+  const styles = matches
+    ? { paddingTop: "50px", paddingLeft: "40px" }
+    : { paddingTop: "50px", paddingLeft: "0px" };
   return (
-    <Grid container sx={{ paddingTop: "50px", paddingLeft: "40px" }}>
-      <Grid item xs={12} sm={8} md={5} elevation={6} component={Paper} square>
+    <Grid container sx={styles}>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        elevation={6}
+        component={Paper}
+        square
+        sx={{
+          height: "80vh",
+          width: "40%",
+          overflow: "scroll",
+          margin: "0 auto",
+        }}
+      >
         {!users.length ? (
           <LinearColor />
         ) : (
@@ -53,6 +72,7 @@ const MapLayout = () => {
           })
         )}
       </Grid>
+
       {users.length === 0 ? (
         <LinearColor />
       ) : (

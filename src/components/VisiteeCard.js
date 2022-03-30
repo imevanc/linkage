@@ -38,7 +38,7 @@ const VisiteeCard = (props) => {
           },
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", width: "170px" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h6">
               {props.user.firstName}
@@ -69,9 +69,9 @@ const VisiteeCard = (props) => {
             </Button>
           </CardContent>
 
-          <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+          {/* <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
             Traffic Light Icon
-          </Box>
+          </Box> */}
         </Box>
 
         <CardMedia
