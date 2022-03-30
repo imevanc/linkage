@@ -78,3 +78,13 @@ export const setVisitsByID = async (_id, visits) => {
       console.log(error);
     });
 };
+
+export const postVisit = async (body) => {
+  return api({
+    method: "POST",
+    url: `/visits`,
+    data: body,
+  }).then((res) => {
+    return res.data;
+  });
+};
