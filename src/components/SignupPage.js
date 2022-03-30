@@ -14,13 +14,14 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import ScrollDownMenu from "./ScrollDownMenu";
 import * as api from "../auth.js";
+import LinearColor from "./LinearColor.js";
+import ErrorCard from "./ErrorCard.js";
 
 const SignUpPage = () => {
   const ourTheme = useContext(ThemeContext);
   const [userRole, setUserRole] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -39,8 +40,6 @@ const SignUpPage = () => {
         password: data.get("password"),
       })
       .then((response) => {
-        console.log(response);
-        setMessage("Thank you, sign up complete. Please now log in with your email address and password");
         setIsLoading(false);
         setTimeout(() => {
           navigate('/')
@@ -126,13 +125,13 @@ const SignUpPage = () => {
               />
             </Grid>
           </Grid>
-          {userRole.length !== 0 && <Typography
+          {/* {userRole.length !== 0 && <Typography
               sx={{
                 color: ourTheme.ourTheme.palette.typography.primary.main,
               }}
             >
               I am a {userRole}
-            </Typography>}
+            </Typography>} */}
           <ScrollDownMenu setUserRole={setUserRole} />
           <Grid item xs={12}>
             <FormControlLabel
@@ -140,35 +139,8 @@ const SignUpPage = () => {
               label="I want to receive marketing updates."
             />
           </Grid>
-          {isLoading && (
-            <Typography
-              sx={{
-                color: ourTheme.ourTheme.palette.typography.primary.main,
-              }}
-            >
-              ...Loading
-            </Typography>
-          )}
 
-          {error && (
-            <Typography
-              sx={{
-                color: ourTheme.ourTheme.palette.typography.primary.main,
-              }}
-            >
-              {error}
-            </Typography>
-          )}
-
-          {message.length !== 0 && (
-            <Typography
-              sx={{
-                color: ourTheme.ourTheme.palette.typography.primary.main,
-              }}
-            >
-              {message}
-            </Typography>
-          )}
+          {isLoading ? <LinearColor/> : (error ? <ErrorCard message={"Sign up failed. Please try again."}/> : `${" "}`)}
 
           <Button
             type="submit"
