@@ -12,6 +12,8 @@ import Container from "@mui/material/Container";
 import { makeStyles } from "@mui/styles";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
+import { getCurrentUser } from "../auth.js";
+
 const visitees = [1, 2, 3];
 
 const useStyles = makeStyles((theme) => ({
@@ -35,6 +37,10 @@ const VolunteerProfile = () => {
   const handleAvatarClick = () => {
     console.log("clicked");
   };
+
+  const currentUser = getCurrentUser();
+  const defaultGravatar = "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+  
   return (
     <Container>
       <Box
@@ -53,7 +59,7 @@ const VolunteerProfile = () => {
             <CardMedia align="center">
               <IconButton onClick={handleAvatarClick}>
                 <Avatar
-                  className={classes.large}
+                  src={currentUser.avatar_url || defaultGravatar}
                   style={{
                     margin: "10px",
                     width: "60px",

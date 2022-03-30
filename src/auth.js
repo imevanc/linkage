@@ -38,6 +38,7 @@ export const loginUser = (body) => {
     return response.data;
   });
 };
+
 export const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
