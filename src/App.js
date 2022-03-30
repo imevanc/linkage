@@ -16,35 +16,78 @@ import { getCurrentUser } from "./auth";
 const App = () => {
   const [ourMode, setOurMode] = useState("light");
   const [user, setUser] = useState(null);
-  
 
   useEffect(() => {
-    if (!user){
+    if (!user) {
       const loggedInUser = getCurrentUser();
       setUser(loggedInUser);
     }
- },[user]);
- 
-  
+  }, [user]);
+
   const ourTheme = Theme(ourMode);
   return (
-    <BrowserRouter> 
+    <BrowserRouter>
       <ThemeContext.Provider value={{ ourTheme }}>
         <ThemeProvider theme={ourTheme}>
           <CssBaseline />
           <Header ourMode={ourMode} setOurMode={setOurMode} />
           <Routes>
             <Route path="/signup" element={<SignUpPage />} ourMode={ourMode} />
-            <Route path="/" element={user ? <MapLayout ourMode={ourMode} /> : <HomePage ourMode={ourMode}/>} />
-            <Route path="/user/:_id" element={user ? <UserCard ourMode={ourMode} /> : <HomePage ourMode={ourMode}/>} />
-            <Route path="/volunteer" element={user ? <VolunteerProfile ourMode={ourMode} /> : <HomePage ourMode={ourMode}/>} />
-            <Route path="/map" element={user ? <MapLayout ourMode={ourMode} /> : <HomePage ourMode={ourMode}/>} />
-            <Route path="/donate" element={user ? <DonatePage ourMode={ourMode} /> : <HomePage ourMode={ourMode}/>} />
+            <Route
+              path="/"
+              element={
+                user ? (
+                  <MapLayout ourMode={ourMode} />
+                ) : (
+                  <HomePage ourMode={ourMode} />
+                )
+              }
+            />
+            <Route
+              path="/users/:_id"
+              element={
+                user ? (
+                  <UserCard ourMode={ourMode} />
+                ) : (
+                  <HomePage ourMode={ourMode} />
+                )
+              }
+            />
+            <Route
+              path="/volunteer"
+              element={
+                user ? (
+                  <VolunteerProfile ourMode={ourMode} />
+                ) : (
+                  <HomePage ourMode={ourMode} />
+                )
+              }
+            />
+            <Route
+              path="/map"
+              element={
+                user ? (
+                  <MapLayout ourMode={ourMode} />
+                ) : (
+                  <HomePage ourMode={ourMode} />
+                )
+              }
+            />
+            <Route
+              path="/donate"
+              element={
+                user ? (
+                  <DonatePage ourMode={ourMode} />
+                ) : (
+                  <HomePage ourMode={ourMode} />
+                )
+              }
+            />
             {/* <Route path="*" element={<PageNotFound ourMode={ourMode} /> */}
           </Routes>
         </ThemeProvider>
       </ThemeContext.Provider>
-  </BrowserRouter>
+    </BrowserRouter>
   );
 };
 

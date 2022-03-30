@@ -37,15 +37,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const VolunteerProfile = () => {
-
   const [visit1, setVisit1] = React.useState("");
   const [visit2, setVisit2] = React.useState("");
   const [visit3, setVisit3] = React.useState("");
   const currentUser = getCurrentUser();
-  console.log(currentUser);
   const defaultGravatar =
     "https://www.gravatar.com/avatar/00000000000000000000000000000000";
-
 
   React.useEffect(() => {
     api.getVisitsByUser(currentUser.id).then((visits) => {
@@ -70,6 +67,14 @@ const VolunteerProfile = () => {
 
   const visitees = [visit1, visit2, visit3];
 
+  const [user, setUser] = React.useState({});
+
+  React.useEffect(() => {
+    api.getUsersByID(currentUser.id).then((response) => {
+      setUser(response);
+    });
+  }, [currentUser.id]);
+
   return (
     <Container>
       <Box
@@ -86,15 +91,14 @@ const VolunteerProfile = () => {
         }}
       >
         <Container maxWidth="sm">
-
           <CardMedia align="center">
             <IconButton>
               <Avatar
-                src={currentUser.avatar_url || defaultGravatar}
+                src={user.avatar_url || defaultGravatar}
                 style={{
                   margin: "10px",
-                  width: "60px",
-                  height: "60px",
+                  width: "100px",
+                  height: "100px",
                 }}
               />
             </IconButton>
@@ -106,9 +110,7 @@ const VolunteerProfile = () => {
             align="center"
             color="text.primary"
             gutterBottom
-          >
-
-          </Typography>
+          ></Typography>
           <Typography
             component="h6"
             variant="h6"
@@ -135,7 +137,7 @@ const VolunteerProfile = () => {
             gutterBottom
           >
             <strong>Interests: </strong>
-            {currentUser.interests}
+            {user.interests}
           </Typography>
           <Typography
             component="h6"
@@ -145,7 +147,7 @@ const VolunteerProfile = () => {
             gutterBottom
           >
             <strong>Age: </strong>
-            {currentUser.age}
+            {user.age}
           </Typography>
           <Typography
             component="h6"
@@ -155,7 +157,7 @@ const VolunteerProfile = () => {
             gutterBottom
           >
             <strong>About Me: </strong>
-            {currentUser.bio}
+            {user.bio}
           </Typography>
         </Container>
       </Box>
@@ -182,8 +184,8 @@ const VolunteerProfile = () => {
                   alt="a random image"
                 />
                 <CardActions>
-                  <Button size="small">Do Something</Button>
-                  <Button size="small">Do Something</Button>
+                  <Button size="small">View Profile</Button>
+                  {/* <Button size="small">Do Something</Button> */}
                 </CardActions>
               </Card>
             </Grid>
