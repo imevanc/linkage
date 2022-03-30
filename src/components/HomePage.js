@@ -26,7 +26,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  
   const handleLogin = (data) => {
     setError(null);
     setIsLoading(true);
@@ -41,6 +41,7 @@ const HomePage = () => {
         bake_cookie(cookie_key, result.accessToken);
         setIsLoading(false);
         navigate("/map");
+        window.location.reload(false);
       })
       .catch((error) => {
         setIsLoading(false);

@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const VolunteerProfile = () => {
+
   const [visit1, setVisit1] = React.useState("");
   const [visit2, setVisit2] = React.useState("");
   const [visit3, setVisit3] = React.useState("");
@@ -44,6 +45,7 @@ const VolunteerProfile = () => {
   console.log(currentUser);
   const defaultGravatar =
     "https://www.gravatar.com/avatar/00000000000000000000000000000000";
+
 
   React.useEffect(() => {
     api.getVisitsByUser(currentUser.id).then((visits) => {
@@ -84,6 +86,7 @@ const VolunteerProfile = () => {
         }}
       >
         <Container maxWidth="sm">
+
           <CardMedia align="center">
             <IconButton>
               <Avatar
@@ -96,6 +99,7 @@ const VolunteerProfile = () => {
               />
             </IconButton>
           </CardMedia>
+
           <Typography
             component="h1"
             variant="h2"
@@ -103,7 +107,7 @@ const VolunteerProfile = () => {
             color="text.primary"
             gutterBottom
           >
-            {currentUser.firstName} {currentUser.lastName}
+
           </Typography>
           <Typography
             component="h6"
