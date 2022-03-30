@@ -20,10 +20,11 @@ import { Avatar, Button } from "@mui/material";
 import { getCurrentUser } from "../auth";
 
 //import Logout from './Logout.js';
-const md5 = require('md5');
+const md5 = require("md5");
 
-const defaultGravatar = "https://www.gravatar.com/avatar/00000000000000000000000000000000"
-const gravatarBaseUrl = "http://www.gravatar.com/avatar/"
+const defaultGravatar =
+  "https://www.gravatar.com/avatar/00000000000000000000000000000000";
+const gravatarBaseUrl = "http://www.gravatar.com/avatar/";
 
 //import logout from "../auth";
 const account = ["Profile", "Logout"];
@@ -38,15 +39,14 @@ const Header = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  
+
   const ourTheme = useContext(ThemeContext);
-  
+
   let userHashedEmail;
   if (user) {
-    userHashedEmail = gravatarBaseUrl + md5(user.email)
+    userHashedEmail = gravatarBaseUrl + md5(user.email);
   }
-  
-  
+
   return (
     <Container sx={{ paddingTop: "40px" }}>
       <AppBar
@@ -109,10 +109,11 @@ const Header = (props) => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open account">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {!user ? <Avatar src={defaultGravatar} />
-                   : 
-                   <Avatar src={userHashedEmail} />
-                }
+                  {!user ? (
+                    <Avatar src={defaultGravatar} />
+                  ) : (
+                    <Avatar src={userHashedEmail} />
+                  )}
                 </IconButton>
               </Tooltip>
               <Menu
@@ -149,13 +150,11 @@ const Header = (props) => {
                       </Button>
                     ) : (
                       <Button
-
                         component={Link}
                         to={"/logout"}
-
-//                         onClick={() => {
-//                           logout();
-//                         }}
+                        //                         onClick={() => {
+                        //                           logout();
+                        //                         }}
 
                         sx={{
                           "&:hover": {

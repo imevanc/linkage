@@ -107,7 +107,27 @@ const UserCard = () => {
               color="textSecondary"
               variant="subtitle1"
               align="left"
-              sx={{ padding: "20px" }}
+              sx={{ padding: "10px", paddingBottom: "0px" }}
+            >
+              <strong>Age:</strong>
+              {user.age}
+            </Typography>{" "}
+            <Typography
+              className={classes.text}
+              color="textSecondary"
+              variant="subtitle1"
+              align="left"
+              sx={{ padding: "10px", paddingBottom: "0px" }}
+            >
+              <strong>Interests:</strong>
+              {user.interests}
+            </Typography>{" "}
+            <Typography
+              className={classes.text}
+              color="textSecondary"
+              variant="subtitle1"
+              align="left"
+              sx={{ padding: "10px" }}
             >
               <strong>About Me:</strong>
               {user.bio}
