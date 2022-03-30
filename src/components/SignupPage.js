@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -18,10 +18,16 @@ import * as api from "../auth.js";
 const SignUpPage = () => {
   const ourTheme = useContext(ThemeContext);
   const [userRole, setUserRole] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    setError(null);
+    setIsLoading(true);
     return api
       .createUser({
         firstName: data.get("firstName"),
@@ -34,6 +40,15 @@ const SignUpPage = () => {
       })
       .then((response) => {
         console.log(response);
+        setMessage("Thank you, sign up complete. Please now log in with your email address and password");
+        setIsLoading(false);
+        setTimeout(() => {
+          navigate('/')
+        }, 2500)
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setError("Something went wrong, please try again");
       });
   };
 
@@ -111,6 +126,13 @@ const SignUpPage = () => {
               />
             </Grid>
           </Grid>
+          {userRole.length !== 0 && <Typography
+              sx={{
+                color: ourTheme.ourTheme.palette.typography.primary.main,
+              }}
+            >
+              I am a {userRole}
+            </Typography>}
           <ScrollDownMenu setUserRole={setUserRole} />
           <Grid item xs={12}>
             <FormControlLabel
@@ -118,6 +140,36 @@ const SignUpPage = () => {
               label="I want to receive marketing updates."
             />
           </Grid>
+          {isLoading && (
+            <Typography
+              sx={{
+                color: ourTheme.ourTheme.palette.typography.primary.main,
+              }}
+            >
+              ...Loading
+            </Typography>
+          )}
+
+          {error && (
+            <Typography
+              sx={{
+                color: ourTheme.ourTheme.palette.typography.primary.main,
+              }}
+            >
+              {error}
+            </Typography>
+          )}
+
+          {message.length !== 0 && (
+            <Typography
+              sx={{
+                color: ourTheme.ourTheme.palette.typography.primary.main,
+              }}
+            >
+              {message}
+            </Typography>
+          )}
+
           <Button
             type="submit"
             fullWidth

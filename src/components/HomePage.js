@@ -11,33 +11,40 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import { Link, useNavigate } from "react-router-dom";
 import DonateNow from "./DonateNow";
 import * as api from "../api.js";
 import { bake_cookie } from "sfcookies";
+import LinearColor from "./LinearColor";
+import ErrorCard from "./ErrorCard";
 
 const HomePage = () => {
   const ourTheme = useContext(ThemeContext);
   const cookie_key = "x-access-token";
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleLogin = (data) => {
-    console.log({ email: data.get("email"), password: data.get("password") });
-
+    setError(null);
+    setIsLoading(true);
     return api
       .loginUser({
         email: data.get("email"),
         password: data.get("password"),
       })
       .then((result) => {
-        console.log("res", result);
+        result.accessToken &&
+          localStorage.setItem("user", JSON.stringify(result));
         bake_cookie(cookie_key, result.accessToken);
+        setIsLoading(false);
         navigate("/map");
       })
       .catch((error) => {
-        console.log(error);
+        setIsLoading(false);
+        setError(error.message);
       });
   };
   const handleSubmit = (event) => {
@@ -100,8 +107,6 @@ const HomePage = () => {
               label="Remember me"
             />
             <Button
-              // component={Link}
-              // to={"/map"}
               type="submit"
               fullWidth
               variant="contained"
@@ -122,6 +127,13 @@ const HomePage = () => {
               </Typography>
             </Button>
             <DonateNow />
+            {isLoading ? (
+              <LinearColor />
+            ) : error ? (
+              <ErrorCard message={"Login Failed"} />
+            ) : (
+              " "
+            )}
             <Grid container>
               <Grid item>
                 <Link to="/signup" style={{ textDecoration: "none" }}>
