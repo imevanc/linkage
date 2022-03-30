@@ -18,8 +18,9 @@ import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import AgeOk from "./AgeOk";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
-const account = ["Profile", "Visitees", "Logout"];
+const account = ["Profile", "Logout"];
 
 const Header = (props) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -126,19 +127,32 @@ const Header = (props) => {
               >
                 {account.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Link to={"/volunteer"} style={{ textDecoration: "none" }}>
-                      <Typography
-                        textAlign="center"
+                    {setting === "Profile" ? (
+                      <Button
+                        component={Link}
+                        to={"/volunteer"}
+                        style={{ textDecoration: "none" }}
                         sx={{
-                          color: "black",
                           "&:hover": {
-                            opacity: [0.9, 0.9, 0.8],
+                            border: "1px dashed grey",
+                            opacity: [0.7, 0.7, 0.7],
                           },
                         }}
                       >
-                        {setting}
-                      </Typography>
-                    </Link>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </Button>
+                    ) : (
+                      <Button
+                        sx={{
+                          "&:hover": {
+                            border: "1px dashed grey",
+                            opacity: [0.7, 0.7, 0.7],
+                          },
+                        }}
+                      >
+                        <Typography textAlign="center">{setting}</Typography>
+                      </Button>
+                    )}
                   </MenuItem>
                 ))}
               </Menu>
