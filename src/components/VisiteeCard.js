@@ -8,8 +8,20 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
+import moment from "moment";
 
 const VisiteeCard = (props) => {
+  console.log(props.user);
+
+  const split = props.user.updatedAt.split("T")[0].split("-").join("");
+  const fromNow = moment(split, "YYYYMMDD").fromNow();
+  let daysAgo = fromNow.split(" ")[0];
+  daysAgo === "a" ? (daysAgo = 0) : Number(daysAgo);
+  const lastTimeSeenColor =
+    daysAgo === 0 ? "green" : daysAgo > 0 && daysAgo <= 2 ? "orange" : "red";
+
+  console.log(daysAgo);
+
   const ourTheme = useContext(ThemeContext);
   return (
     <Box
@@ -24,7 +36,7 @@ const VisiteeCard = (props) => {
       <Card
         sx={{
           display: "flex",
-          border: `5px solid ${props.border}`,
+          border: `5px solid ${lastTimeSeenColor}`,
           "&:hover": {
             border: `5px solid ${ourTheme.ourTheme.palette.primary.main}`,
           },
