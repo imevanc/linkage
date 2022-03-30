@@ -52,10 +52,6 @@ const VolunteerProfile = () => {
   const handleAvatarClick = () => {
     console.log("clicked");
   };
-  const currentUser = getCurrentUser();
-  console.log(currentUser);
-  const defaultGravatar =
-    "https://www.gravatar.com/avatar/00000000000000000000000000000000";
 
   return (
     <Container>
@@ -78,18 +74,6 @@ const VolunteerProfile = () => {
             className={classes.card}
             style={{ display: "flex", flexDirection: "column" }}
           >
-            <CardMedia align="center">
-              <IconButton onClick={handleAvatarClick}>
-                <Avatar
-                  src={currentUser.avatar_url || defaultGravatar}
-                  style={{
-                    margin: "10px",
-                    width: "60px",
-                    height: "60px",
-                  }}
-                />
-              </IconButton>
-            </CardMedia>
           </Card>
           <Typography
             component="h1"
@@ -98,7 +82,7 @@ const VolunteerProfile = () => {
             color="text.primary"
             gutterBottom
           >
-            {currentUser.firstName} {currentUser.lastName}
+
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12}>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -6,25 +7,30 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
-import CardMedia from "@mui/material/CardMedia";
-
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-
 import CustomSwitch from "./CustomSwitch";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import AgeOk from "./AgeOk";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
-import logout from "../auth";
+
+import { Avatar, Button } from "@mui/material";
+import { getCurrentUser } from "../auth";
+
+//import Logout from './Logout.js';
+const md5 = require('md5');
+
+const defaultGravatar = "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+const gravatarBaseUrl = "http://www.gravatar.com/avatar/"
+
+//import logout from "../auth";
 const account = ["Profile", "Logout"];
 
 const Header = (props) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const user = getCurrentUser();
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -32,8 +38,15 @@ const Header = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  
   const ourTheme = useContext(ThemeContext);
-
+  
+  let userHashedEmail;
+  if (user) {
+    userHashedEmail = gravatarBaseUrl + md5(user.email)
+  }
+  
+  
   return (
     <Container sx={{ paddingTop: "40px" }}>
       <AppBar
@@ -96,17 +109,10 @@ const Header = (props) => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open account">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      width: "50px",
-                      height: "50px",
-                      paddingTop: "5px",
-                    }}
-                    variant="rounded"
-                    alt="User"
-                    src="https://source.unsplash.com/random?humans"
-                  />
+                {!user ? <Avatar src={defaultGravatar} />
+                   : 
+                   <Avatar src={userHashedEmail} />
+                }
                 </IconButton>
               </Tooltip>
               <Menu
@@ -143,9 +149,14 @@ const Header = (props) => {
                       </Button>
                     ) : (
                       <Button
-                        onClick={() => {
-                          logout();
-                        }}
+
+                        component={Link}
+                        to={"/logout"}
+
+//                         onClick={() => {
+//                           logout();
+//                         }}
+
                         sx={{
                           "&:hover": {
                             border: "1px dashed grey",
