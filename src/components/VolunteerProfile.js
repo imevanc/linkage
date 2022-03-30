@@ -9,10 +9,32 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
+import { makeStyles } from "@mui/styles";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
 const visitees = [1, 2, 3];
 
+const useStyles = makeStyles((theme) => ({
+  card: {
+    borderRadius: 15,
+    maxWidth: "100vw",
+    backgroundColor: theme.palette.background.card,
+  },
+  cardContent: {
+    padding: theme.spacing(2, 0, 0, 0),
+  },
+  large: {
+    width: theme.spacing(12),
+    height: theme.spacing(12),
+    margin: theme.spacing(2, 2, 0),
+  },
+}));
+
 const VolunteerProfile = () => {
+  const classes = useStyles();
+  const handleAvatarClick = () => {
+    console.log("clicked");
+  };
   return (
     <Container>
       <Box
@@ -23,6 +45,24 @@ const VolunteerProfile = () => {
         }}
       >
         <Container maxWidth="sm">
+          <Card
+            variant="contained"
+            className={classes.card}
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <CardMedia align="center">
+              <IconButton onClick={handleAvatarClick}>
+                <Avatar
+                  className={classes.large}
+                  style={{
+                    margin: "10px",
+                    width: "60px",
+                    height: "60px",
+                  }}
+                />
+              </IconButton>
+            </CardMedia>
+          </Card>
           <Typography
             component="h1"
             variant="h2"
