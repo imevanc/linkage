@@ -49,42 +49,23 @@ const MapLayout = () => {
     : { paddingTop: "50px", paddingLeft: "0px" };
   return (
     <Grid container sx={styles}>
-      <Grid
-        item
-        xs={12}
-        sm={8}
-        md={5}
-        elevation={6}
-        component={Paper}
-        square
-        sx={{
-          height: "80vh",
-          width: "40%",
-          overflow: "scroll",
-          margin: "0 auto",
-        }}
-      >
-        {!users.length ? (
-          <LinearColor />
-        ) : (
-          users.map((user, idx) => {
-            return <VisiteeCard key={idx} border={border} user={user} />;
-          })
-        )}
-      </Grid>
-
       {users.length === 0 ? (
         <LinearColor />
       ) : (
-        <Grid item xs={false} sm={4} md={7} maxWidth="xl">
-          <Box direction="row" justifyContent="end" display="flex">
+        <Grid item xs={100} sm={4} md={7} maxWidth="xl">
+          <Box
+            direction="row"
+            justifyContent="end"
+            display="flex"
+            sx={{ width: "90%", margin: "0 auto", height: "50vh" }}
+          >
             <MapContainer
               tap={Boolean(false)}
               center={[
                 JSON.parse(users[0].latitude),
                 JSON.parse(users[0].longitude),
               ]}
-              style={{ height: "80vh", width: "90%" }}
+              style={{ width: "100%" }}
               zoom={10}
             >
               <TileLayer
@@ -116,6 +97,29 @@ const MapLayout = () => {
           </Box>
         </Grid>
       )}
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        elevation={6}
+        component={Paper}
+        square
+        sx={{
+          height: "80vh",
+          width: "40%",
+          overflow: "scroll",
+          margin: "0 auto",
+        }}
+      >
+        {!users.length ? (
+          <LinearColor />
+        ) : (
+          users.map((user, idx) => {
+            return <VisiteeCard key={idx} border={border} user={user} />;
+          })
+        )}
+      </Grid>
     </Grid>
   );
 };
