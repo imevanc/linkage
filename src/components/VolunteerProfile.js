@@ -186,7 +186,9 @@ const VolunteerProfile = () => {
                       <Typography gutterBottom variant="h5" component="h2">
                         {card.visiteeFirstName} {card.visiteeLastName}
                       </Typography>
-                      <Typography>Last Visit: {card.visitTime}</Typography>
+                      <Typography>
+                        Last Visit: {card.visitTime.slice(0, 10)}
+                      </Typography>
                     </CardContent>
                     <CardMedia
                       sx={{
