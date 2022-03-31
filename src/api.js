@@ -56,6 +56,7 @@ export const getUsersByID = async (_id) => {
   return api({
     method: "GET",
     url: `/users/${_id}`,
+    headers: authHeader(),
   })
     .then((res) => {
       return res.data;
@@ -70,6 +71,7 @@ export const setVisitsByID = async (_id, visits) => {
     method: "PATCH",
     url: `/visits/${_id}`,
     data: visits,
+    headers: authHeader(),
   })
     .then((res) => {
       return res.data;
@@ -84,6 +86,7 @@ export const postVisit = async (body) => {
     method: "POST",
     url: `/visits`,
     data: body,
+    headers: authHeader(),
   })
     .then((res) => {
       return res.data;
@@ -97,6 +100,7 @@ export const getVisitsByUser = async (_id) => {
   return api({
     method: "GET",
     url: `users/${_id}/visits`,
+    headers: authHeader(),
   })
     .then((res) => {
       return res.data;
@@ -111,6 +115,7 @@ export const patchVolunteer = async (id, data) => {
     method: "PATCH",
     url: `/users/${id}`,
     data: data,
+    headers: authHeader(),
   })
     .then((res) => {
       return res.data;

@@ -29,12 +29,7 @@ export const loginUser = (body) => {
     method: "post",
     url: "/auth/login",
     data: body,
-    // withCredentials: true, // Now this is was the missing piece in the client side
   }).then((response) => {
-    // console.log(response.data);
-    // if (response.data.accessToken) {
-    //   localStorage.setItem("user", JSON.stringify(response.data));
-    // }
     return response.data;
   });
 };
