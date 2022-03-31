@@ -48,6 +48,7 @@ const Header = (props) => {
   if (user) {
     userHashedEmail = gravatarBaseUrl + md5(user.email);
   }
+
   const styles = matches
     ? { xs: false, md: "flex" }
     : { xs: "flex", md: "none" };
@@ -74,6 +75,7 @@ const Header = (props) => {
         height: "8vh",
         padding: "0",
       };
+
   return (
     <Container
       sx={{
@@ -126,13 +128,66 @@ const Header = (props) => {
                 />
               </FormGroup>
 
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open account">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    {!user ? (
-                      <Avatar src={defaultGravatar} />
+
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open account">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  {!user ? (
+                    <Avatar src={defaultGravatar} />
+                  ) : (
+                    <Avatar src={userHashedEmail} />
+                  )}
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {account.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    {setting === "Profile" ? (
+                      <Button
+                        component={Link}
+                        to={"/volunteer"}
+                        style={{ textDecoration: "none" }}
+                        sx={{
+                          "&:hover": {
+                            border: "1px dashed grey",
+                            opacity: [0.7, 0.7, 0.7],
+                          },
+                        }}
+                      >
+                        <Typography textAlign="center">{setting}</Typography>
+                      </Button>
                     ) : (
-                      <Avatar src={userHashedEmail} />
+                      <Button
+                        component={Link}
+                        to={"/logout"}
+                        //                         onClick={() => {
+                        //                           logout();
+                        //                         }}
+
+                        sx={{
+                          "&:hover": {
+                            border: "1px dashed grey",
+                            opacity: [0.7, 0.7, 0.7],
+                          },
+                        }}
+                      >
+                        <Typography textAlign="center">{setting}</Typography>
+                      </Button>
                     )}
                   </IconButton>
                 </Tooltip>

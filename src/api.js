@@ -88,3 +88,34 @@ export const postVisit = async (body) => {
     return res.data;
   });
 };
+
+export const getVisitsByUser = async (_id, body) => {
+  return api({
+    method: "GET",
+    url: `users/${_id}/visits`,
+    data: body,
+  }).then((res) => {
+    return res.data;
+  });
+};
+
+export const patchVolunteer = async (
+  _id,
+  avatar_url,
+  bio,
+  interests,
+  age,
+  email
+) => {
+  return api({
+    method: "PATCH",
+    url: `/user/${_id}`,
+    data: avatar_url,
+    bio,
+    interests,
+    age,
+    email,
+  }).then((res) => {
+    return res.data;
+  });
+};

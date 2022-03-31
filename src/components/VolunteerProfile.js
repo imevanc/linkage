@@ -18,8 +18,7 @@ import TextField from "@mui/material/TextField";
 import UserDatePicker from "./UserDatePicker.js";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-
-const visitees = [1, 2, 3];
+import * as api from "../api";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -38,20 +37,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const VolunteerProfile = () => {
-  const [bioButton, setBioButton] = React.useState("Edit Bio");
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [visit1, setVisit1] = React.useState("");
+  const [visit2, setVisit2] = React.useState("");
+  const [visit3, setVisit3] = React.useState("");
+  const currentUser = getCurrentUser();
+  const defaultGravatar =
+    "https://www.gravatar.com/avatar/00000000000000000000000000000000";
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  React.useEffect(() => {
+    api.getVisitsByUser(currentUser.id).then((visits) => {
+      const lastVisit = visits[visits.length - 1];
+      setVisit1(lastVisit);
+    });
+  }, [currentUser.id]);
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-  const classes = useStyles();
-  const handleAvatarClick = () => {
-    console.log("clicked");
-  };
+  React.useEffect(() => {
+    api.getVisitsByUser(currentUser.id).then((visits) => {
+      const lastVisit = visits[visits.length - 2];
+      setVisit2(lastVisit);
+    });
+  }, [currentUser.id]);
+
+  React.useEffect(() => {
+    api.getVisitsByUser(currentUser.id).then((visits) => {
+      const lastVisit = visits[visits.length - 3];
+      setVisit3(lastVisit);
+    });
+  }, [currentUser.id]);
+
+  const visitees = [visit1, visit2, visit3];
+
+  const [user, setUser] = React.useState({});
+
+  React.useEffect(() => {
+    api.getUsersByID(currentUser.id).then((response) => {
+      setUser(response);
+    });
+  }, [currentUser.id]);
 
   return (
     <Container>
@@ -69,54 +91,80 @@ const VolunteerProfile = () => {
         }}
       >
         <Container maxWidth="sm">
-          <Card
-            variant="contained"
-            className={classes.card}
-            style={{ display: "flex", flexDirection: "column" }}
-          >
-          </Card>
+          <CardMedia align="center">
+            <IconButton>
+              <Avatar
+                src={user.avatar_url || defaultGravatar}
+                style={{
+                  margin: "10px",
+                  width: "100px",
+                  height: "100px",
+                }}
+              />
+            </IconButton>
+          </CardMedia>
+
           <Typography
             component="h1"
             variant="h2"
             align="center"
             color="text.primary"
             gutterBottom
+          ></Typography>
+          <Typography
+            component="h6"
+            variant="h6"
+            align="center"
+            color="text.primary"
+            gutterBottom
           >
-
+            {currentUser.email}
           </Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <TextField required id="Bio" label="Edit Bio" fullWidth />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="Interests"
-                label="Edit Interests"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <UserDatePicker />
-            </Grid>
-            <Grid item xs={12} md={6}></Grid>
-          </Grid>
-          <Stack
-            sx={{ pt: 4 }}
-            direction="row"
-            spacing={2}
-            justifyContent="center"
+          <Typography
+            component="h6"
+            variant="h6"
+            align="center"
+            color="text.primary"
+            gutterBottom
           >
-            <Button variant="contained">Submit</Button>
-            <Button variant="outlined">Cancel</Button>
-          </Stack>
+            {currentUser.postcode}
+          </Typography>
+          <Typography
+            component="h6"
+            variant="h6"
+            align="left"
+            color="text.primary"
+            gutterBottom
+          >
+            <strong>Interests: </strong>
+            {user.interests}
+          </Typography>
+          <Typography
+            component="h6"
+            variant="h6"
+            align="left"
+            color="text.primary"
+            gutterBottom
+          >
+            <strong>Age: </strong>
+            {user.age}
+          </Typography>
+          <Typography
+            component="h6"
+            variant="h6"
+            align="left"
+            color="text.primary"
+            gutterBottom
+          >
+            <strong>About Me: </strong>
+            {user.bio}
+          </Typography>
         </Container>
       </Box>
       <Container sx={{ py: 8 }} maxWidth="md">
         <Grid container spacing={4}>
           {visitees.map((card) => (
-            <Grid item key={card} xs={12} sm={6} md={4}>
+            <Grid item key={card._id} xs={12} sm={6} md={4}>
               <Card
                 sx={{
                   height: "100%",
@@ -126,9 +174,9 @@ const VolunteerProfile = () => {
               >
                 <CardContent sx={{ flexGrow: 1 }}>
                   <Typography gutterBottom variant="h5" component="h2">
-                    Visitee Full Name
+                    {card.visiteeFirstName} {card.visiteeLastName}
                   </Typography>
-                  <Typography>Visitee Information</Typography>
+                  <Typography>Last Visit: {card.visitTime}</Typography>
                 </CardContent>
                 <CardMedia
                   component="img"
@@ -136,8 +184,8 @@ const VolunteerProfile = () => {
                   alt="a random image"
                 />
                 <CardActions>
-                  <Button size="small">Do Something</Button>
-                  <Button size="small">Do Something</Button>
+                  <Button size="small">View Profile</Button>
+                  {/* <Button size="small">Do Something</Button> */}
                 </CardActions>
               </Card>
             </Grid>
