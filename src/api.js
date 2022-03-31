@@ -109,7 +109,7 @@ export const getVisitsByUser = async (_id) => {
 export const patchVolunteer = async (id, data) => {
   return api({
     method: "PATCH",
-    url: `/user/${id}`,
+    url: `/users/${id}`,
     data: data,
   })
     .then((res) => {

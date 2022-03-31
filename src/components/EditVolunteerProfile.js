@@ -13,11 +13,11 @@ import IconButton from "@mui/material/IconButton";
 import { getCurrentUser } from "../auth.js";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
-import UserDatePicker from "./UserDatePicker.js";
+import SelectAge from "./SelectAge.js";
 import LinearColor from "./LinearColor.js";
 import * as api from "../api";
 import md5 from "md5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -38,10 +38,10 @@ const useStyles = makeStyles((theme) => ({
 const EditVolunteerProfile = () => {
   const [bio, setBio] = React.useState("");
   const [interests, setInterests] = React.useState([]);
+  const navigate = useNavigate();
   const [needs, setNeeds] = React.useState([]);
   const [age, setAge] = React.useState(null);
   const [user, setUser] = React.useState({});
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const currentUser = getCurrentUser();
   const classes = useStyles();
 
@@ -56,11 +56,31 @@ const EditVolunteerProfile = () => {
     };
     fetchUsersByID().catch((error) => console.log(error));
   }, [currentUser.id]);
-  console.log(currentUser);
-  console.log(user);
-  const handleSubmitButton = () => {
-    console.log("submit");
-    // return api.patchVolunteer(user._id, data);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const currentForm = document.getElementById("form1");
+    const elementsForm = new FormData(currentForm);
+    const updatedData = {
+      bio: elementsForm.get("Bio"),
+      interests: elementsForm.get("Interests"),
+      needs: elementsForm.get("Needs"),
+    };
+    const updateVolunteer = async () => {
+      await api
+        .patchVolunteer(user._id, {
+          bio: updatedData.bio,
+          interests: updatedData.interests,
+          needs: updatedData.needs,
+          age: age,
+        })
+        .then((response) => console.log(response));
+    };
+
+    updateVolunteer().catch((error) => {
+      console.log(error);
+    });
+    navigate("/volunteer");
   };
 
   const handleAvatarClick = () => {
@@ -70,7 +90,6 @@ const EditVolunteerProfile = () => {
   let userHashedEmail = Object.keys(user).length
     ? gravatarBaseUrl + md5(user.email)
     : " ";
-
   return (
     <React.Fragment>
       {Object.keys(user).length === 0 ? (
@@ -129,21 +148,47 @@ const EditVolunteerProfile = () => {
               >
                 {currentUser.firstName} {currentUser.lastName}
               </Typography>
-              <Grid container spacing={3}>
+              <Grid
+                component="form"
+                noValidate
+                id="form1"
+                container
+                spacing={3}
+              >
                 <Grid item xs={12}>
-                  <TextField required id="Bio" label="Edit Bio" fullWidth />
-                </Grid>
-
-                <Grid item xs={12} md={6}>
                   <TextField
+                    name="Bio"
+                    multiline
+                    rows={5}
+                    variant="outlined"
                     required
-                    id="Interests"
-                    label="Edit Interests"
+                    id="Bio"
+                    label="Bio"
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
-                  <UserDatePicker />
+                <Grid item xs={12} md={12}>
+                  <TextField
+                    name="Interests"
+                    variant="outlined"
+                    required
+                    id="Interests"
+                    label="Interests"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <TextField
+                    name="Needs"
+                    variant="outlined"
+                    required
+                    id="Needs"
+                    label="Needs"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12} md={3}>
+                  <SelectAge age={age} setAge={setAge} />
                 </Grid>
                 <Grid item xs={12} md={6}></Grid>
               </Grid>
@@ -154,14 +199,13 @@ const EditVolunteerProfile = () => {
                 justifyContent="center"
               >
                 <Button
-                  component={Link}
-                  to={"/volunteer"}
+                  onClick={handleSubmit}
                   variant="contained"
-                  onClick={handleSubmitButton}
                   color="success"
                 >
                   Submit
                 </Button>
+
                 <Button
                   component={Link}
                   to={"/volunteer"}
