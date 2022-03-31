@@ -36,7 +36,6 @@ const VisiteeCard = (props) => {
 
   const transformedEndPC = postCode.split("").slice(-3).join("").toUpperCase();
   const newPostCode = `${transformedStartPC} ${transformedEndPC}`;
-  console.log(props.idx, props.clicked);
 
   const styles =
     props.idx === props.clicked

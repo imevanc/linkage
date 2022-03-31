@@ -14,7 +14,6 @@ export const createUser = async (user) => {
     method: "post",
     url: "/auth/signup",
     data: user,
-    // withCredentials: true, // Now this is was the missing piece in the client side
   })
     .then((res) => {
       return res.data;
@@ -44,7 +43,6 @@ export const logout = () => {
 export default function authHeader() {
   const user = JSON.parse(localStorage.getItem("user"));
   if (user && user.accessToken) {
-    // for Node.js Express back-end
     return { "x-access-token": user.accessToken };
   } else {
     return {};
@@ -54,7 +52,6 @@ export const getUsers = async () => {
   return api({
     method: "get",
     url: "/users",
-    // withCredentials: true,
     headers: authHeader(),
   })
     .then((res) => {

@@ -1,8 +1,6 @@
 import axios from "axios";
 import authHeader from "./auth";
 const api = axios.create({
-  // withCredentials: true,
-  // credentials: "include",
   baseURL: "https://final-project-ukage-be.herokuapp.com/api",
   headers: {
     "Content-type": "application/json",
@@ -10,7 +8,6 @@ const api = axios.create({
 });
 
 export const loginUser = async (body) => {
-  console.log(body);
   return api({
     method: "POST",
     url: "/auth/login",
@@ -41,7 +38,6 @@ export const getUsers = async () => {
   return api({
     method: "GET",
     url: "/users",
-    // withCredentials: true,
     headers: authHeader(),
   })
     .then((res) => {
