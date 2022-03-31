@@ -43,11 +43,10 @@ const VisiteeCard = (props) => {
   return (
     <Box
       sx={{
-        my: 2,
-        mx: 4,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        margin: "20px",
       }}
     >
       <Card
@@ -77,20 +76,6 @@ const VisiteeCard = (props) => {
             >
               {newPostCode}
             </Typography>
-            {/* <Button
-              component={Link}
-              to={`/users/${props.user._id}`}
-              variant="contained"
-              type="submit"
-              sx={{
-                fontSize: ourTheme.ourTheme.palette.button.smallFontSize,
-                backgroundColor: ourTheme.ourTheme.palette.button.color.main,
-                "&:hover": { opacity: [0.9, 0.9, 0.8] },
-              }}
-              size="small"
-            >
-              <Typography sx={{ align: "right" }}>View</Typography>
-            </Button> */}
           </CardContent>
         </Box>
 

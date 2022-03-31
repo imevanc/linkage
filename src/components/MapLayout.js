@@ -11,6 +11,8 @@ import VisiteeCard from "./VisiteeCard";
 import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { ViewColumn } from "@mui/icons-material";
+import { margin } from "@mui/system";
 
 const configLeaflet = () => {
   delete L.Icon.Default.prototype._getIconUrl;
@@ -28,7 +30,7 @@ const MapLayout = () => {
   configLeaflet();
   const [users, setUsers] = React.useState([]);
   const [clicked, setClicked] = React.useState(Boolean(false));
-  const [border, setBorder] = React.useState(
+  const [backgroundColor, setBackgroundColor] = React.useState(
     ourTheme.ourTheme.palette.secondary.main
   );
   const filterUsers = (users) => {
@@ -45,19 +47,84 @@ const MapLayout = () => {
     fetchUsers().catch((error) => console.log(error));
   }, []);
   const styles = matches
-    ? { paddingTop: "50px", paddingLeft: "40px" }
-    : { paddingTop: "50px", paddingLeft: "0px" };
+    ? {
+        paddingTop: "50px",
+        paddingLeft: "40px",
+        width: "100%",
+        boxShadow: "none",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: "100vh",
+        // maxWidth: "1500px",
+        margin: "0 auto",
+      }
+    : {
+        paddingTop: "50px",
+        paddingLeft: "0px",
+        width: "100%",
+        boxShadow: "none",
+      };
+  const stylesMap = matches
+    ? {
+        width: "100%",
+        margin: "0 auto",
+        paddingLeft: "50px",
+        boxShadow: "none",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+      }
+    : {
+        width: "100%",
+        margin: "0 auto",
+        height: "40vh",
+        boxShadow: "none",
+        overflow: "hidden",
+      };
+  const mapPaddingStyle = matches
+    ? {
+        overflow: "hidden",
+        boxShadow: "none",
+        paddingTop: "40px",
+        marginBottom: "50px",
+      }
+    : {
+        overflow: "hidden",
+        boxShadow: "none",
+        paddingTop: "0px",
+        marginBottom: "50px",
+      };
+
   return (
-    <Grid container sx={styles}>
+    <Grid
+      container
+      sx={styles}
+      elevation={10}
+      component={Paper}
+      square
+      bgcolor={"grey"}
+    >
       {users.length === 0 ? (
         <LinearColor />
       ) : (
-        <Grid item xs={100} sm={4} md={7} maxWidth="xl">
+        <Grid
+          item
+          xs={100}
+          sm={4}
+          md={7}
+          maxWidth="xl"
+          elevation={10}
+          component={Paper}
+          square
+          bgcolor={"grey"}
+          sx={mapPaddingStyle}
+        >
           <Box
             direction="row"
             justifyContent="end"
             display="flex"
-            sx={{ width: "90%", margin: "0 auto", height: "50vh" }}
+            sx={stylesMap}
           >
             <MapContainer
               tap={Boolean(false)}
@@ -65,7 +132,7 @@ const MapLayout = () => {
                 JSON.parse(users[0].latitude),
                 JSON.parse(users[0].longitude),
               ]}
-              style={{ width: "100%" }}
+              style={{ width: "100%", height: "85vh" }}
               zoom={10}
             >
               <TileLayer
@@ -79,7 +146,6 @@ const MapLayout = () => {
                     position={[user.latitude, user.longitude]}
                     eventHandlers={{
                       click: () => {
-                        setBorder(ourTheme.ourTheme.palette.primary.main);
                         setClicked(!clicked);
                       },
                     }}
@@ -97,26 +163,26 @@ const MapLayout = () => {
           </Box>
         </Grid>
       )}
+
       <Grid
-        item
-        xs={12}
-        sm={8}
-        md={5}
-        elevation={6}
         component={Paper}
         square
+        bgcolor={"grey"}
+        elevation={10}
         sx={{
-          height: "80vh",
-          width: "40%",
-          overflow: "scroll",
-          margin: "0 auto",
+          height: "85vh",
+          scrollbarColor: "dark",
+          overflow: "scrall",
+          overflowX: "hidden",
+          margin: "-30px auto 0 auto",
+          boxShadow: "none",
         }}
       >
         {!users.length ? (
           <LinearColor />
         ) : (
           users.map((user, idx) => {
-            return <VisiteeCard key={idx} border={border} user={user} />;
+            return <VisiteeCard key={idx} user={user} />;
           })
         )}
       </Grid>
