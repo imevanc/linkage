@@ -84,37 +84,38 @@ export const postVisit = async (body) => {
     method: "POST",
     url: `/visits`,
     data: body,
-  }).then((res) => {
-    return res.data;
-  });
+  })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 export const getVisitsByUser = async (_id) => {
   return api({
     method: "GET",
     url: `users/${_id}/visits`,
-  }).then((res) => {
-    return res.data;
-  });
+  })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
-export const patchVolunteer = async (
-  _id,
-  avatar_url,
-  bio,
-  interests,
-  age,
-  email
-) => {
+export const patchVolunteer = async (id, data) => {
   return api({
     method: "PATCH",
-    url: `/user/${_id}`,
-    data: avatar_url,
-    bio,
-    interests,
-    age,
-    email,
-  }).then((res) => {
-    return res.data;
-  });
+    url: `/users/${id}`,
+    data: data,
+  })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };

@@ -14,6 +14,8 @@ import { getCurrentUser } from "../auth.js";
 import Paper from "@mui/material/Paper";
 import * as api from "../api";
 import LinearColor from "./LinearColor";
+import Stack from "@mui/material/Stack";
+import { Link } from "react-router-dom";
 
 const VolunteerProfile = () => {
   const [user, setUser] = React.useState({});
@@ -22,6 +24,8 @@ const VolunteerProfile = () => {
   const currentUser = getCurrentUser();
   const defaultGravatar =
     "https://www.gravatar.com/avatar/00000000000000000000000000000000";
+
+  const handleEditProfileButton = () => {};
 
   React.useEffect(() => {
     const fetchVisits = async () => {
@@ -51,7 +55,7 @@ const VolunteerProfile = () => {
 
   const newPostCode = `${transformedStartPC} ${transformedEndPC}`;
   return (
-    <>
+    <React.Fragment>
       {Object.keys(user).length === 0 ? (
         <LinearColor />
       ) : (
@@ -140,6 +144,21 @@ const VolunteerProfile = () => {
                 <strong>About Me: </strong>
                 {user.bio}
               </Typography>
+              <Stack
+                sx={{ pt: 2 }}
+                direction="row"
+                spacing={2}
+                justifyContent="center"
+              >
+                <Button
+                  component={Link}
+                  to={"/edit-profile"}
+                  variant="contained"
+                  onClick={handleEditProfileButton}
+                >
+                  Edit Profile
+                </Button>
+              </Stack>
             </Container>
           </Box>
           <Container sx={{ py: 8 }} maxWidth="md">
@@ -189,7 +208,7 @@ const VolunteerProfile = () => {
           </Container>
         </Container>
       )}
-    </>
+    </React.Fragment>
   );
 };
 
