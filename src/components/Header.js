@@ -18,8 +18,8 @@ import { Link } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Avatar, Button } from "@mui/material";
 import { getCurrentUser } from "../auth";
-
-//import Logout from './Logout.js';
+import { logout } from "../auth";
+// import Logout from './Logout.js';
 const md5 = require("md5");
 
 const defaultGravatar =
@@ -128,66 +128,13 @@ const Header = (props) => {
                 />
               </FormGroup>
 
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open account">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  {!user ? (
-                    <Avatar src={defaultGravatar} />
-                  ) : (
-                    <Avatar src={userHashedEmail} />
-                  )}
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {account.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    {setting === "Profile" ? (
-                      <Button
-                        component={Link}
-                        to={"/volunteer"}
-                        style={{ textDecoration: "none" }}
-                        sx={{
-                          "&:hover": {
-                            border: "1px dashed grey",
-                            opacity: [0.7, 0.7, 0.7],
-                          },
-                        }}
-                      >
-                        <Typography textAlign="center">{setting}</Typography>
-                      </Button>
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open account">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    {!user ? (
+                      <Avatar src={defaultGravatar} />
                     ) : (
-                      <Button
-                        component={Link}
-                        to={"/logout"}
-                        //                         onClick={() => {
-                        //                           logout();
-                        //                         }}
-
-                        sx={{
-                          "&:hover": {
-                            border: "1px dashed grey",
-                            opacity: [0.7, 0.7, 0.7],
-                          },
-                        }}
-                      >
-                        <Typography textAlign="center">{setting}</Typography>
-                      </Button>
+                      <Avatar src={userHashedEmail} />
                     )}
                   </IconButton>
                 </Tooltip>
@@ -227,10 +174,9 @@ const Header = (props) => {
                         <Button
                           component={Link}
                           to={"/logout"}
-                          //                         onClick={() => {
-                          //                           logout();
-                          //                         }}
-
+                          onClick={() => {
+                            logout();
+                          }}
                           sx={{
                             "&:hover": {
                               border: "1px dashed grey",
