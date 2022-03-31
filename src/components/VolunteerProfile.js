@@ -41,24 +41,36 @@ const VolunteerProfile = () => {
     fetchVisits().catch((error) => console.log(error));
     fetchUsersByID().catch((error) => console.log(error));
   }, [currentUser.id]);
+  const transformedStartPC = currentUser.postcode
+    .split("")
+    .slice(0, -3)
+    .join("")
+    .toUpperCase();
 
+  const transformedEndPC = currentUser.postcode
+    .split("")
+    .slice(-3)
+    .join("")
+    .toUpperCase();
+
+  const newPostCode = `${transformedStartPC} ${transformedEndPC}`;
   return (
     <React.Fragment>
       {Object.keys(user).length === 0 ? (
         <LinearColor />
       ) : (
-        <Container>
+        <Container sx={{ width: "100%" }}>
           <Box
             component={Paper}
             elevation={15}
             bgcolor="grey"
             sx={{
-              pb: 6,
-              my: 8,
-              mx: 4,
+              borderRadius: "15px",
+              marginTop: "50px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              width: "100%",
             }}
           >
             <Container maxWidth="sm">
@@ -68,7 +80,7 @@ const VolunteerProfile = () => {
                     src={user.avatar_url || defaultGravatar}
                     style={{
                       margin: "10px",
-                      width: "100px",
+                      width: "100%",
                       height: "100px",
                     }}
                   />
@@ -100,7 +112,7 @@ const VolunteerProfile = () => {
                 color="text.primary"
                 gutterBottom
               >
-                {user.postcode}
+                {newPostCode}
               </Typography>
               <Typography
                 component="h6"
@@ -150,37 +162,48 @@ const VolunteerProfile = () => {
             </Container>
           </Box>
           <Container sx={{ py: 8 }} maxWidth="md">
+            <Typography gutterBottom variant="h5" component="h2">
+              My Visits
+            </Typography>
             <Grid container spacing={4}>
-              {visits.length === 0 ? (
-                <LinearColor />
-              ) : (
-                visits.map((card) => (
-                  <Grid item key={card._id} xs={12} sm={6} md={4}>
-                    <Card
+              {visits.map((card) => (
+                <Grid item key={card._id} xs={12} sm={6} md={4}>
+                  <Card
+                    elevation={10}
+                    component={Paper}
+                    square
+                    bgcolor={"grey"}
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: "15px",
+                    }}
+                  >
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {card.visiteeFirstName} {card.visiteeLastName}
+                      </Typography>
+                      <Typography>Last Visit: {card.visitTime}</Typography>
+                    </CardContent>
+                    <CardMedia
                       sx={{
-                        height: "100%",
-                        display: "flex",
-                        flexDirection: "column",
+                        height: "200px",
+                        width: "200px",
+                        borderRadius: "50%",
                       }}
-                    >
-                      <CardContent sx={{ flexGrow: 1 }}>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {card.visiteeFirstName} {card.visiteeLastName}
-                        </Typography>
-                        <Typography>Last Visit: {card.visitTime}</Typography>
-                      </CardContent>
-                      <CardMedia
-                        component="img"
-                        image="https://source.unsplash.com/random"
-                        alt="a random image"
-                      />
-                      <CardActions>
-                        <Button size="small">View Profile</Button>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                ))
-              )}
+                      component="img"
+                      image="https://source.unsplash.com/random"
+                      alt="a random image"
+                    />
+                    <CardActions>
+                      <Button size="small">View Profile</Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
             </Grid>
           </Container>
         </Container>

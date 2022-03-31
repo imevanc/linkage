@@ -49,7 +49,6 @@ const UserCard = () => {
       await api
         .getUsersByID(id)
         .then((response) => {
-          console.log(response);
           return response;
         })
         .then((fetchedUser) => setUser(fetchedUser));
