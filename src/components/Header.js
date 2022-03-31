@@ -25,7 +25,7 @@ const defaultGravatar =
   "https://www.gravatar.com/avatar/00000000000000000000000000000000";
 const gravatarBaseUrl = "http://www.gravatar.com/avatar/";
 
-const account = ["Profile", "Logout"];
+const account = ["Profile", "Edit Profile", "Logout"];
 
 const Header = (props) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -167,7 +167,7 @@ const Header = (props) => {
                         >
                           <Typography textAlign="center">{setting}</Typography>
                         </Button>
-                      ) : (
+                      ) : setting === "Logout" ? (
                         <Button
                           component={Link}
                           to={"/"}
@@ -175,6 +175,23 @@ const Header = (props) => {
                             logout();
                             window.location.reload(false);
                           }}
+                          sx={{
+                            "&:hover": {
+                              border: "1px dashed grey",
+                              opacity: [0.7, 0.7, 0.7],
+                            },
+                          }}
+                        >
+                          <Typography textAlign="center">{setting}</Typography>
+                        </Button>
+                      ) : (
+                        <Button
+                          component={Link}
+                          to={"/edit-profile"}
+                          // onClick={() => {
+                          //   logout();
+                          //   window.location.reload(false);
+                          // }}
                           sx={{
                             "&:hover": {
                               border: "1px dashed grey",

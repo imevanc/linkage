@@ -12,6 +12,7 @@ import MapLayout from "./components/MapLayout";
 import UserCard from "./components/UserCard";
 import VolunteerProfile from "./components/VolunteerProfile";
 import { getCurrentUser } from "./auth";
+import EditVolunteerProfile from "./components/EditVolunteerProfile";
 
 const App = () => {
   const [ourMode, setOurMode] = useState("light");
@@ -58,6 +59,16 @@ const App = () => {
               element={
                 user ? (
                   <VolunteerProfile ourMode={ourMode} />
+                ) : (
+                  <HomePage ourMode={ourMode} />
+                )
+              }
+            />
+            <Route
+              path="/edit-profile"
+              element={
+                user ? (
+                  <EditVolunteerProfile ourMode={ourMode} />
                 ) : (
                   <HomePage ourMode={ourMode} />
                 )
