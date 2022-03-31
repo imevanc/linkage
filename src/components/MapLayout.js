@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import LinearColor from "./LinearColor";
 import Box from "@mui/material/Box";
@@ -9,27 +9,31 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import VisiteeCard from "./VisiteeCard";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
-const configLeaflet = () => {
-  delete L.Icon.Default.prototype._getIconUrl;
-  L.Icon.Default.mergeOptions({
-    iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-    iconUrl: require("leaflet/dist/images/marker-icon.png"),
-    shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-  });
-};
+import { Link } from "react-router-dom";
 
 const MapLayout = () => {
   const matches = useMediaQuery("(min-width:600px)");
 
-  configLeaflet();
   const [users, setUsers] = React.useState([]);
   const [clicked, setClicked] = React.useState(Boolean(false));
+  const [selectedCard, setSelectedCard] = React.useState(0);
+
+  const configLeaflet = () => {
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+      iconUrl: require("leaflet/dist/images/marker-icon.png"),
+      shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+    });
+  };
+  configLeaflet();
+
   const filterUsers = (users) => {
     return users.filter(
       (user) => user.latitude && user.longitude && user.userRole === "visitee"
     );
   };
+
   React.useEffect(() => {
     const fetchUsers = async () => {
       await api.getUsers().then((fetchedUsers) => {
@@ -136,16 +140,28 @@ const MapLayout = () => {
                     key={idx}
                     position={[user.latitude, user.longitude]}
                     eventHandlers={{
-                      click: () => {
+                      click: (event) => {
                         setClicked(!clicked);
                       },
                     }}
                   >
                     <Popup>
-                      Post Code: {user.postcode}
-                      <br />
-                      Latitude: {user.latitude} <br /> Longitude:{" "}
-                      {user.longitude}
+                      <a
+                        data_id={idx}
+                        onClick={() => {
+                          setSelectedCard(idx);
+                        }}
+                        href={`#${idx}`}
+                        style={{
+                          textDecoration: "none",
+                        }}
+                      >
+                        {user.firstName}
+                        <br />
+                        {user.lastName}
+                        <br />
+                        {user.postcode.toUpperCase()}
+                      </a>
                     </Popup>
                   </Marker>
                 );
@@ -173,7 +189,25 @@ const MapLayout = () => {
           <LinearColor />
         ) : (
           users.map((user, idx) => {
-            return <VisiteeCard key={idx} user={user} />;
+            return (
+              <Box
+                className="card"
+                component={Link}
+                to={`/users/${user._id}`}
+                key={idx}
+                name={idx}
+                // data_id={user._id}
+                sx={{
+                  "&:hover": {
+                    border: "1px dashed grey",
+                    opacity: [0.7, 0.7, 0.7],
+                  },
+                  textDecoration: "none",
+                }}
+              >
+                <VisiteeCard key={idx} idx={idx} user={user} />
+              </Box>
+            );
           })
         )}
       </Grid>
