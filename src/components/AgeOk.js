@@ -1,27 +1,23 @@
 import { Link } from "react-router-dom";
-import { Card, CardMedia } from "@mui/material";
+import { CardMedia, CardActionArea } from "@mui/material";
 
 const AgeOk = () => {
   return (
-    <Card
-      component={Link}
-      to={"/"}
-      sx={{
-        flexGrow: 1,
-        height: "50%",
-        width: "100%",
-        display: { xs: "flex", md: "flex", sm: "block" },
-      }}
-    >
+  <CardActionArea>
+    <Link to="/">
       <CardMedia
         component="img"
         sx={{
+          marginTop: 1.5,
+          width: 100,          
           display: { xs: "flex", md: "flex", sm: "block" },
         }}
-        image={process.env.PUBLIC_URL + "age-ok.png"}
-        alt="age-ok"
+        image={process.env.PUBLIC_URL + "linkage-logo.png"}
+        alt="linkage logo"
       />
-    </Card>
+    </Link>
+  </CardActionArea>
+ 
   );
 };
 
