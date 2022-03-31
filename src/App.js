@@ -12,6 +12,7 @@ import MapLayout from "./components/MapLayout";
 import UserCard from "./components/UserCard";
 import VolunteerProfile from "./components/VolunteerProfile";
 import { getCurrentUser } from "./auth";
+import "./styles.css";
 
 const App = () => {
   const [ourMode, setOurMode] = useState("light");

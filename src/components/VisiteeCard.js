@@ -4,10 +4,10 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+
 import Color from "color";
 
-const VisiteeCard = (props) => {
+const VisiteeCard = (props, { idx }) => {
   const lastVisit = props.user.lastVisit;
   const postCode = props.user.postcode;
   const lastVisitTime = lastVisit[lastVisit.length - 1];
@@ -52,13 +52,16 @@ const VisiteeCard = (props) => {
           borderRadius: "20px",
           alignItems: "center",
           backgroundColor: Color(lastTimeSeenColor).alpha(0.5).string(),
-          textDecoration: "none",
         }}
-        component={Link}
-        to={`/users/${props.user._id}`}
       >
-        <Box sx={{ display: "flex", flexDirection: "column", width: "150px" }}>
-          <CardContent sx={{ flex: "1 0 auto" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "150px",
+          }}
+        >
+          <CardContent sx={{ flex: "1 0 auto", textDecoration: "none" }}>
             <Typography component="div" variant="h6">
               {props.user.firstName}
             </Typography>
