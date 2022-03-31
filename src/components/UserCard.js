@@ -102,33 +102,33 @@ const UserCard = () => {
             </Typography>{" "}
             <Visits user={user} />
             <Typography
-              className={classes.text}
-              color="textSecondary"
-              variant="subtitle1"
-              align="left"
-              sx={{ padding: "10px", paddingBottom: "0px" }}
+              component="h6"
+              variant="h6"
+              align="center"
+              color="text.primary"
+              gutterBottom
             >
-              <strong>Age:</strong>
-              {user.age}
-            </Typography>{" "}
-            <Typography
-              className={classes.text}
-              color="textSecondary"
-              variant="subtitle1"
-              align="left"
-              sx={{ padding: "10px", paddingBottom: "0px" }}
-            >
-              <strong>Interests:</strong>
+              <strong>Interests: </strong>
               {user.interests}
-            </Typography>{" "}
+            </Typography>
             <Typography
-              className={classes.text}
-              color="textSecondary"
-              variant="subtitle1"
-              align="left"
-              sx={{ padding: "10px" }}
+              component="h6"
+              variant="h6"
+              align="center"
+              color="text.primary"
+              gutterBottom
             >
-              <strong>About Me:</strong>
+              <strong>Age: </strong>
+              {user.age}
+            </Typography>
+            <Typography
+              component="h6"
+              variant="h6"
+              align="center"
+              color="text.primary"
+              gutterBottom
+            >
+              <strong>About Me: </strong>
               {user.bio}
             </Typography>{" "}
           </CardContent>

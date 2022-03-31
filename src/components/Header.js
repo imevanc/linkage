@@ -186,22 +186,6 @@ const Header = (props) => {
                         </Button>
                       ) : (
                         <Typography textAlign="center">{setting}</Typography>
-                        // <Button
-                        //   component={Link}
-                        //   to={"/edit-profile"}
-                        //   // onClick={() => {
-                        //   //   logout();
-                        //   //   window.location.reload(false);
-                        //   // }}
-                        //   sx={{
-                        //     "&:hover": {
-                        //       border: "1px dashed grey",
-                        //       opacity: [0.7, 0.7, 0.7],
-                        //     },
-                        //   }}
-                        // >
-                        //   <Typography textAlign="center">{setting}</Typography>
-                        // </Button>
                       )}
                     </MenuItem>
                   ))}

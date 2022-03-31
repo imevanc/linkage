@@ -36,10 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EditVolunteerProfile = () => {
-  const [bio, setBio] = React.useState("");
-  const [interests, setInterests] = React.useState([]);
   const navigate = useNavigate();
-  const [needs, setNeeds] = React.useState([]);
   const [age, setAge] = React.useState(null);
   const [user, setUser] = React.useState({});
   const currentUser = getCurrentUser();

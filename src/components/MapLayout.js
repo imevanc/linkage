@@ -10,12 +10,13 @@ import L from "leaflet";
 import VisiteeCard from "./VisiteeCard";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Link } from "react-router-dom";
+// import Link as muiLink from "@mui/material/Link";
 
 const MapLayout = () => {
   const matches = useMediaQuery("(min-width:600px)");
 
   const [users, setUsers] = React.useState([]);
-  const [clicked, setClicked] = React.useState(Boolean(false));
+  const [clicked, setClicked] = React.useState(null);
   const [selectedCard, setSelectedCard] = React.useState(0);
 
   const configLeaflet = () => {
@@ -141,27 +142,28 @@ const MapLayout = () => {
                     position={[user.latitude, user.longitude]}
                     eventHandlers={{
                       click: (event) => {
-                        setClicked(!clicked);
+                        setClicked(idx);
                       },
                     }}
                   >
                     <Popup>
-                      <a
-                        data_id={idx}
+                      {/* <Link
+                        component="button"
+                        variant="body2"
+                        to={"/map"}
                         onClick={() => {
                           setSelectedCard(idx);
                         }}
-                        href={`#${idx}`}
                         style={{
                           textDecoration: "none",
                         }}
-                      >
-                        {user.firstName}
-                        <br />
-                        {user.lastName}
-                        <br />
-                        {user.postcode.toUpperCase()}
-                      </a>
+                      > */}
+                      {user.firstName}
+                      <br />
+                      {user.lastName}
+                      <br />
+                      {user.postcode.toUpperCase()}
+                      {/* </Link> */}
                     </Popup>
                   </Marker>
                 );
@@ -196,16 +198,16 @@ const MapLayout = () => {
                 to={`/users/${user._id}`}
                 key={idx}
                 name={idx}
-                // data_id={user._id}
                 sx={{
-                  "&:hover": {
-                    border: "1px dashed grey",
-                    opacity: [0.7, 0.7, 0.7],
-                  },
                   textDecoration: "none",
                 }}
               >
-                <VisiteeCard key={idx} idx={idx} user={user} />
+                <VisiteeCard
+                  key={idx}
+                  idx={idx}
+                  user={user}
+                  clicked={clicked}
+                />
               </Box>
             );
           })

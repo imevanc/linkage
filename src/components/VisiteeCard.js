@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 
 import Color from "color";
 
-const VisiteeCard = (props, { idx }) => {
+const VisiteeCard = (props) => {
   const lastVisit = props.user.lastVisit;
   const postCode = props.user.postcode;
   const lastVisitTime = lastVisit[lastVisit.length - 1];
@@ -36,7 +36,9 @@ const VisiteeCard = (props, { idx }) => {
 
   const transformedEndPC = postCode.split("").slice(-3).join("").toUpperCase();
   const newPostCode = `${transformedStartPC} ${transformedEndPC}`;
+  // console.log(props.idx, props.clicked);
   return (
+    // props.idx === props.clicked ? render box with blue lines : render what we already had
     <Box
       sx={{
         display: "flex",
@@ -52,6 +54,10 @@ const VisiteeCard = (props, { idx }) => {
           borderRadius: "20px",
           alignItems: "center",
           backgroundColor: Color(lastTimeSeenColor).alpha(0.5).string(),
+          "&:hover": {
+            border: "1px dashed grey",
+            opacity: [0.7, 0.7, 0.7],
+          },
         }}
       >
         <Box

@@ -15,12 +15,12 @@ import Paper from "@mui/material/Paper";
 import * as api from "../api";
 import LinearColor from "./LinearColor";
 import Stack from "@mui/material/Stack";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const VolunteerProfile = () => {
   const [user, setUser] = React.useState({});
   const [visits, setVisits] = React.useState([]);
-
+  const navigate = useNavigate();
   const currentUser = getCurrentUser();
   const defaultGravatar =
     "https://www.gravatar.com/avatar/00000000000000000000000000000000";
@@ -73,14 +73,14 @@ const VolunteerProfile = () => {
               width: "100%",
             }}
           >
-            <Container maxWidth="sm">
+            <Container maxWidth="sm" sx={{ paddingBottom: "20px" }}>
               <CardMedia align="center">
                 <IconButton>
                   <Avatar
                     src={user.avatar_url || defaultGravatar}
                     style={{
                       margin: "10px",
-                      width: "100%",
+                      width: "100px",
                       height: "100px",
                     }}
                   />
@@ -199,7 +199,12 @@ const VolunteerProfile = () => {
                       alt="a random image"
                     />
                     <CardActions>
-                      <Button size="small">View Profile</Button>
+                      <Button
+                        size="small"
+                        onClick={() => navigate(`/users/${card.visiteeId}`)}
+                      >
+                        View Profile
+                      </Button>
                     </CardActions>
                   </Card>
                 </Grid>
