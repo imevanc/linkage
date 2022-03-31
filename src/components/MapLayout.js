@@ -17,7 +17,7 @@ const MapLayout = () => {
 
   const [users, setUsers] = React.useState([]);
   const [clicked, setClicked] = React.useState(null);
-  const [selectedCard, setSelectedCard] = React.useState(0);
+  // const [selectedCard, setSelectedCard] = React.useState(0);
 
   const configLeaflet = () => {
     delete L.Icon.Default.prototype._getIconUrl;
@@ -147,23 +147,18 @@ const MapLayout = () => {
                     }}
                   >
                     <Popup>
-                      {/* <Link
-                        component="button"
-                        variant="body2"
-                        to={"/map"}
-                        onClick={() => {
-                          setSelectedCard(idx);
-                        }}
+                      <a
+                        href={`#${idx}`}
                         style={{
                           textDecoration: "none",
                         }}
-                      > */}
-                      {user.firstName}
-                      <br />
-                      {user.lastName}
-                      <br />
-                      {user.postcode.toUpperCase()}
-                      {/* </Link> */}
+                      >
+                        {user.firstName}
+                        <br />
+                        {user.lastName}
+                        <br />
+                        {user.postcode.toUpperCase()}
+                      </a>
                     </Popup>
                   </Marker>
                 );

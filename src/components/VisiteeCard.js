@@ -36,19 +36,23 @@ const VisiteeCard = (props) => {
 
   const transformedEndPC = postCode.split("").slice(-3).join("").toUpperCase();
   const newPostCode = `${transformedStartPC} ${transformedEndPC}`;
-  // console.log(props.idx, props.clicked);
-  return (
-    // props.idx === props.clicked ? render box with blue lines : render what we already had
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        margin: "20px",
-      }}
-    >
-      <Card
-        sx={{
+  console.log(props.idx, props.clicked);
+
+  const styles =
+    props.idx === props.clicked
+      ? {
+          display: "flex",
+          border: `5px solid  ${Color(lastTimeSeenColor).alpha(1).string()}`,
+          color: "white",
+          borderRadius: "20px",
+          alignItems: "center",
+          backgroundColor: Color(lastTimeSeenColor).alpha(1).string(),
+          "&:hover": {
+            border: "1px dashed grey",
+            opacity: [0.7, 0.7, 0.7],
+          },
+        }
+      : {
           display: "flex",
           border: `5px solid  ${Color(lastTimeSeenColor).alpha(0.9).string()}`,
           borderRadius: "20px",
@@ -58,8 +62,17 @@ const VisiteeCard = (props) => {
             border: "1px dashed grey",
             opacity: [0.7, 0.7, 0.7],
           },
-        }}
-      >
+        };
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: "20px",
+      }}
+    >
+      <Card sx={styles}>
         <Box
           sx={{
             display: "flex",
@@ -74,11 +87,7 @@ const VisiteeCard = (props) => {
             <Typography component="div" variant="h6">
               {props.user.lastName}
             </Typography>
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              component="div"
-            >
+            <Typography variant="subtitle1" component="div">
               {newPostCode}
             </Typography>
           </CardContent>
