@@ -8,11 +8,7 @@ import * as api from "../auth.js";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import VisiteeCard from "./VisiteeCard";
-import { useContext } from "react";
-import { ThemeContext } from "../theme/ThemeContext";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { ViewColumn } from "@mui/icons-material";
-import { margin } from "@mui/system";
 
 const configLeaflet = () => {
   delete L.Icon.Default.prototype._getIconUrl;
@@ -26,13 +22,9 @@ const configLeaflet = () => {
 const MapLayout = () => {
   const matches = useMediaQuery("(min-width:600px)");
 
-  const ourTheme = useContext(ThemeContext);
   configLeaflet();
   const [users, setUsers] = React.useState([]);
   const [clicked, setClicked] = React.useState(Boolean(false));
-  const [backgroundColor, setBackgroundColor] = React.useState(
-    ourTheme.ourTheme.palette.secondary.main
-  );
   const filterUsers = (users) => {
     return users.filter(
       (user) => user.latitude && user.longitude && user.userRole === "visitee"
@@ -56,7 +48,6 @@ const MapLayout = () => {
         justifyContent: "space-between",
         alignItems: "center",
         height: "100vh",
-        // maxWidth: "1500px",
         margin: "0 auto",
       }
     : {

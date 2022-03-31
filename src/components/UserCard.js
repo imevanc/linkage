@@ -71,7 +71,7 @@ const UserCard = () => {
             <Avatar
               alt="User"
               src={user.avatar_url}
-              /*"/a-broken-link"*/ className={classes.large}
+              className={classes.large}
             />
           </CardMedia>
           <CardContent className={classes.cardContent}>

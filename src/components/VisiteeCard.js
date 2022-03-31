@@ -3,11 +3,8 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { ThemeContext } from "../theme/ThemeContext";
 import Color from "color";
 
 const VisiteeCard = (props) => {
@@ -39,7 +36,6 @@ const VisiteeCard = (props) => {
 
   const transformedEndPC = postCode.split("").slice(-3).join("").toUpperCase();
   const newPostCode = `${transformedStartPC} ${transformedEndPC}`;
-  const ourTheme = useContext(ThemeContext);
   return (
     <Box
       sx={{

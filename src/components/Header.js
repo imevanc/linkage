@@ -19,14 +19,12 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { Avatar, Button } from "@mui/material";
 import { getCurrentUser } from "../auth";
 import { logout } from "../auth";
-// import Logout from './Logout.js';
 const md5 = require("md5");
 
 const defaultGravatar =
   "https://www.gravatar.com/avatar/00000000000000000000000000000000";
 const gravatarBaseUrl = "http://www.gravatar.com/avatar/";
 
-//import logout from "../auth";
 const account = ["Profile", "Logout"];
 
 const Header = (props) => {
@@ -50,7 +48,7 @@ const Header = (props) => {
   }
 
   const styles = matches
-    ? { xs: false, md: "flex" }
+    ? { xs: "false", md: "flex" }
     : { xs: "flex", md: "none" };
   const stylesBar = matches
     ? {
@@ -82,7 +80,6 @@ const Header = (props) => {
         paddingTop: "40px",
         display: "flex",
         alignItems: "center",
-        // margin: "30px 0",
       }}
     >
       <AppBar position="static" sx={stylesBar}>
@@ -124,7 +121,7 @@ const Header = (props) => {
                       }
                     />
                   }
-                  // label={props.ourMode + " mode"}
+                  label=" "
                 />
               </FormGroup>
 
@@ -173,9 +170,10 @@ const Header = (props) => {
                       ) : (
                         <Button
                           component={Link}
-                          to={"/logout"}
+                          to={"/"}
                           onClick={() => {
                             logout();
+                            window.location.reload(false);
                           }}
                           sx={{
                             "&:hover": {

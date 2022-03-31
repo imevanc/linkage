@@ -4,11 +4,10 @@ import HandshakeIcon from "@mui/icons-material/Handshake";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import * as api from "../api.js"; // eslint-disable-line
+import * as api from "../api.js";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import * as auth from "../auth.js";
-// import LinearColor from "./LinearColor";
 import ErrorCard from "./ErrorCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,8 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const Visits = ({ user }) => {
   const classes = useStyles();
   const ourTheme = useContext(ThemeContext);
-  // const [visits, setVisits] = useState(visits); // eslint-disable-line
-  const [loading, isLoading] = useState(false); // eslint-disable-line
+  const [, isLoading] = useState(false);
   const [error, setError] = useState(null);
   const [body, setBody] = useState("");
   const currentUser = auth.getCurrentUser();
@@ -41,7 +39,6 @@ const Visits = ({ user }) => {
   };
 
   const postNewVisit = async () => {
-    console.log(userObject);
     isLoading(true);
     setError(null);
     setBody("");
@@ -64,7 +61,7 @@ const Visits = ({ user }) => {
           setBody("");
         }
       );
-  }; // eslint-disable-line
+  };
 
   return (
     <Box>
@@ -88,7 +85,6 @@ const Visits = ({ user }) => {
           Click to Visit
         </Button>
       </Typography>
-      {/* {isLoading && <LinearColor />} */}
       {error && <ErrorCard message={error} />}
       {body.length !== 0 && (
         <Typography
@@ -102,14 +98,6 @@ const Visits = ({ user }) => {
           {body}
         </Typography>
       )}
-      {/* <Typography
-        className={classes.text}
-        color="textSecondary"
-        variant="subtitle1"
-        align="center"
-      >
-        Total Visits: 0
-      </Typography> */}
     </Box>
   );
 };

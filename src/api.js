@@ -89,11 +89,10 @@ export const postVisit = async (body) => {
   });
 };
 
-export const getVisitsByUser = async (_id, body) => {
+export const getVisitsByUser = async (_id) => {
   return api({
     method: "GET",
     url: `users/${_id}/visits`,
-    data: body,
   }).then((res) => {
     return res.data;
   });

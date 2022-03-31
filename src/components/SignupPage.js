@@ -42,8 +42,8 @@ const SignUpPage = () => {
       .then((response) => {
         setIsLoading(false);
         setTimeout(() => {
-          navigate('/')
-        }, 2500)
+          navigate("/");
+        }, 2500);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -125,13 +125,6 @@ const SignUpPage = () => {
               />
             </Grid>
           </Grid>
-          {/* {userRole.length !== 0 && <Typography
-              sx={{
-                color: ourTheme.ourTheme.palette.typography.primary.main,
-              }}
-            >
-              I am a {userRole}
-            </Typography>} */}
           <ScrollDownMenu setUserRole={setUserRole} />
           <Grid item xs={12}>
             <FormControlLabel
@@ -140,7 +133,13 @@ const SignUpPage = () => {
             />
           </Grid>
 
-          {isLoading ? <LinearColor/> : (error ? <ErrorCard message={"Sign up failed. Please try again."}/> : `${" "}`)}
+          {isLoading ? (
+            <LinearColor />
+          ) : error ? (
+            <ErrorCard message={"Sign up failed. Please try again."} />
+          ) : (
+            `${" "}`
+          )}
 
           <Button
             type="submit"
