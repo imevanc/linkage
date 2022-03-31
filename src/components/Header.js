@@ -70,7 +70,7 @@ const Header = (props) => {
         top: 0,
         right: 0,
         backgroundColor: ourTheme.ourTheme.palette.primary.main,
-        height: "8vh",
+        height: "10vh",
         padding: "0",
       };
 
