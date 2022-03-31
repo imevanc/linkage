@@ -15,7 +15,6 @@ const UserDatePicker = () => {
           required
           label="Edit DOB*"
           value={value}
-          name="password"
           type="Edit DOB*"
           id="Edit DOB*"
           onChange={(newValue) => {

@@ -1,8 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -16,9 +14,10 @@ import { getCurrentUser } from "../auth.js";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import UserDatePicker from "./UserDatePicker.js";
+import LinearColor from "./LinearColor.js";
 import * as api from "../api";
-
-const visitees = [1, 2, 3];
+import md5 from "md5";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -59,121 +58,124 @@ const EditVolunteerProfile = () => {
   }, [currentUser.id]);
   console.log(currentUser);
   console.log(user);
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+  const handleSubmitButton = () => {
+    console.log("submit");
+    // return api.patchVolunteer(user._id, data);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
   const handleAvatarClick = () => {
-    console.log("clicked");
+    console.log("avatar-clicked");
   };
+  const gravatarBaseUrl = "http://www.gravatar.com/avatar/";
+  let userHashedEmail = Object.keys(user).length
+    ? gravatarBaseUrl + md5(user.email)
+    : " ";
 
   return (
-    <Container>
-      <Box
-        component={Paper}
-        elevation={15}
-        bgcolor="grey"
-        sx={{
-          pb: 6,
-          my: 8,
-          mx: 4,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Container maxWidth="sm">
-          <Card
-            variant="contained"
-            className={classes.card}
-            style={{ display: "flex", flexDirection: "column" }}
+    <React.Fragment>
+      {Object.keys(user).length === 0 ? (
+        <LinearColor />
+      ) : (
+        <Container>
+          <Box
+            component={Paper}
+            elevation={15}
+            bgcolor="grey"
+            sx={{
+              pb: 6,
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <CardMedia align="center">
-              <IconButton onClick={handleAvatarClick}>
-                <Avatar
-                  src={currentUser.avatar_url || defaultGravatar}
-                  style={{
-                    margin: "10px",
-                    width: "60px",
-                    height: "60px",
-                  }}
-                />
-              </IconButton>
-            </CardMedia>
-          </Card>
-          <Typography
-            component="h1"
-            variant="h2"
-            align="center"
-            color="text.primary"
-            gutterBottom
-          >
-            {currentUser.firstName} {currentUser.lastName}
-          </Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <TextField required id="Bio" label="Edit Bio" fullWidth />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="Interests"
-                label="Edit Interests"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <UserDatePicker />
-            </Grid>
-            <Grid item xs={12} md={6}></Grid>
-          </Grid>
-          <Stack
-            sx={{ pt: 4 }}
-            direction="row"
-            spacing={2}
-            justifyContent="center"
-          >
-            <Button variant="contained">Submit</Button>
-            <Button variant="outlined">Cancel</Button>
-          </Stack>
-        </Container>
-      </Box>
-      <Container sx={{ py: 8 }} maxWidth="md">
-        <Grid container spacing={4}>
-          {visitees.map((card) => (
-            <Grid item key={card} xs={12} sm={6} md={4}>
+            <Container maxWidth="sm">
               <Card
-                sx={{
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
+                variant="contained"
+                className={classes.card}
+                style={{ display: "flex", flexDirection: "column" }}
               >
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    Visitee Full Name
-                  </Typography>
-                  <Typography>Visitee Information</Typography>
-                </CardContent>
-                <CardMedia
-                  component="img"
-                  image="https://source.unsplash.com/random"
-                  alt="a random image"
-                />
-                <CardActions>
-                  <Button size="small">Do Something</Button>
-                  <Button size="small">Do Something</Button>
-                </CardActions>
+                <CardMedia align="center">
+                  <IconButton onClick={handleAvatarClick} sx={{ p: 0 }}>
+                    {!user ? (
+                      <Avatar
+                        src={defaultGravatar}
+                        style={{
+                          margin: "10px",
+                          width: "60px",
+                          height: "60px",
+                        }}
+                      />
+                    ) : (
+                      <Avatar
+                        src={userHashedEmail}
+                        style={{
+                          margin: "10px",
+                          width: "60px",
+                          height: "60px",
+                        }}
+                      />
+                    )}
+                  </IconButton>
+                </CardMedia>
               </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-    </Container>
+              <Typography
+                component="h1"
+                variant="h2"
+                align="center"
+                color="text.primary"
+                gutterBottom
+              >
+                {currentUser.firstName} {currentUser.lastName}
+              </Typography>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <TextField required id="Bio" label="Edit Bio" fullWidth />
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    required
+                    id="Interests"
+                    label="Edit Interests"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <UserDatePicker />
+                </Grid>
+                <Grid item xs={12} md={6}></Grid>
+              </Grid>
+              <Stack
+                sx={{ pt: 4 }}
+                direction="row"
+                spacing={2}
+                justifyContent="center"
+              >
+                <Button
+                  component={Link}
+                  to={"/volunteer"}
+                  variant="contained"
+                  onClick={handleSubmitButton}
+                  color="success"
+                >
+                  Submit
+                </Button>
+                <Button
+                  component={Link}
+                  to={"/volunteer"}
+                  variant="outlined"
+                  color="error"
+                >
+                  Cancel
+                </Button>
+              </Stack>
+            </Container>
+          </Box>
+        </Container>
+      )}
+    </React.Fragment>
   );
 };
 
