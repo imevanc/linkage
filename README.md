@@ -35,7 +35,7 @@ LinkAge is responsive with a mobile first approach.
 1. User first needs to sign up as a volunteer with an email, password and a postcode or directly login to their account. 
 2. The home page loads all the people available for a visit (visitees) on an interactive map. The green colour of the card means the person has been seen within the last 24 hours, Ambre colour - within the last 48 hours and red - 72 hours and is in need to socialise. 
 
-3. User can click on any visitee card to see their frofile info and submit a new visit <br> 
+3. User can click on any visitee card to see their profile info and submit a new visit <br> 
 4. User can also see and modify their own profile info. <br> 
 
 ## Setup <a name="Setup"></a>
