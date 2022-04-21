@@ -16,6 +16,7 @@ const VisiteeCard = (props) => {
 
   if (!lastVisitTime) {
     lastTimeSeenColor = "#A83F4D";
+    // lastTimeSeenColor = "#FF0000";
   } else {
     const newTime = new Date(lastVisit[lastVisit.length - 1]).getTime();
     const nowTime = new Date().getTime();
@@ -26,7 +27,7 @@ const VisiteeCard = (props) => {
         ? "#388F60"
         : countTimeDiff > 86400 && countTimeDiff <= 259200
         ? "#9E7328"
-        : " #A83F4D";
+        : "#A83F4D";
   }
   const transformedStartPC = postCode
     .split("")
